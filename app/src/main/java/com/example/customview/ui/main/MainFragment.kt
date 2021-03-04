@@ -25,7 +25,6 @@ class MainFragment : Fragment() {
 
 	private lateinit var binding: MainFragmentBinding
 	private lateinit var viewModel: MainViewModel
-	var colors = listOf<Int>()
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -35,19 +34,19 @@ class MainFragment : Fragment() {
 		binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
 		binding.lifecycleOwner = this
 		binding.mainViewModel = viewModel
-		colors = requireContext().resources.getIntArray(R.array.colors).toList()
+		val colors = requireContext().resources.getIntArray(R.array.colors).toList()
 		val allCurrency = java.util.Currency.getAvailableCurrencies()
 		val listOfCurrency = getListOfCurrency()
 		val finalList = mutableListOf<Currency>()
 		for (item in allCurrency) {
 			for (items in listOfCurrency) {
-				if (item.currencyCode == items.simbol) {
-					finalList.add(items.copy(simbol = item.symbol))
+				if (item.currencyCode == items.symbol) {
+					finalList.add(items.copy(symbol = item.symbol))
 				}
 			}
 		}
-		val simbolList = finalList.map { it.name }
-		setPostalCodeSpinnerAdapter(simbolList)
+		val nameList = finalList.map { it.name }
+		setPostalCodeSpinnerAdapter(nameList)
 
 		binding.textinputPrefixText.setListener(object : IPrefixEditTextListener {
 			override fun onPrefixClicked() {
@@ -68,9 +67,8 @@ class MainFragment : Fragment() {
 
 		viewModel.codeInputText.observe(viewLifecycleOwner, Observer {
 			it?.let { name ->
-				val listOfCurrency = getListOfCurrency()
-				val names = listOfCurrency.filter {
-					it.name == name
+				val names = listOfCurrency.filter { currency ->
+					currency.name == name
 				}
 				if (names.isNullOrEmpty().not()) binding.textinputPrefixText.changeColor(colors.random(), names.first())
 			}
@@ -122,24 +120,9 @@ class MainFragment : Fragment() {
 		Currency("South African Rand", "ZAR", 0.107847)
 	)
 
-//	override fun onCreate(savedInstanceState: Bundle?) {
-//		super.onCreate(savedInstanceState)
-//		viewModel.codeInputText.observe(viewLifecycleOwner, Observer {
-//			it?.let { name ->
-//				val listOfCurrency = getListOfCurrency()
-//				val name = listOfCurrency.filter {
-//					it.name == name
-//				}
-//				binding.textinputPrefixText.changeColor(colors.random(), name.first())
-//			}
-//		})
-//	}
-
-
-
 	data class Currency(
 		val name: String = "",
-		val simbol: String = "",
+		val symbol: String = "",
 		val bgn: Double = 0.00
 	)
 }
