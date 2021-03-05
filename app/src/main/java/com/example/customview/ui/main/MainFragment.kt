@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.customview.cv.bubbleView.ShowCaseView
 import com.example.customview.R
 import com.example.customview.cv.edittextview.IPrefixEditTextListener
 import com.example.customview.cv.spinner.SpinarAdapter
@@ -73,6 +74,18 @@ class MainFragment : Fragment() {
 				if (names.isNullOrEmpty().not()) binding.textinputPrefixText.changeColor(colors.random(), names.first())
 			}
 		})
+		val showCaseBubbleViewModel = viewModel.getShowCaseBubbleViewModel()
+		val showCaseView = ShowCaseView.Builder(requireActivity())
+			.focusOn(binding.textinputPrefixText)
+			.hasCircle(true)
+			.animateInfoBubble(true)
+			.setShowCaseBubbleViewModel(showCaseBubbleViewModel)
+			.closeOnTouch(false)
+			.hasCircularAnim(false)
+			.enableTouchOnFocusedView(true)
+			.clickableOn(binding.textinputPrefixText)
+			.build()
+			showCaseView.show()
 		return binding.root
 	}
 

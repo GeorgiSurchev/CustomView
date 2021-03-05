@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+		<TextView
+			android:id="@+id/show_case_tooltip_bubble_tv"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/tooltip"
+			android:backgroundTint="@color/white"
+			android:gravity="start"
+			android:ellipsize="end"
+			android:maxLines="6"
+			android:paddingStart="@dimen/padding_20dp"
+			android:paddingTop="@dimen/padding_30dp"
+			android:paddingEnd="@dimen/padding_20dp"
+			android:paddingBottom="@dimen/padding_20dp"
+			android:textColor="@color/black"
+			android:textSize="@dimen/text_size_16sp" />
+
+</layout>

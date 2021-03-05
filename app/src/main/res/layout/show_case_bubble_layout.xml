@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+
+		<variable
+			name="viewModel"
+			type="com.example.customview.cv.bubbleView.ShowCaseBubbleViewModel" />
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/bubble_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@drawable/show_case_bubble"
+		android:paddingStart="@dimen/padding_20dp"
+		android:paddingTop="@dimen/padding_30dp"
+		android:paddingEnd="@dimen/padding_20dp"
+		android:paddingBottom="@dimen/padding_30dp">
+
+		<TextView
+			android:id="@+id/show_case_bubble_new"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="@drawable/draw_joker_additional_background"
+			android:backgroundTint="@color/teal_200"
+			android:fontFamily="sans-serif-black"
+			android:gravity="center_horizontal"
+			android:paddingStart="@dimen/padding_8dp"
+			android:paddingEnd="@dimen/padding_8dp"
+			android:singleLine="true"
+			android:textAlignment="center"
+			android:textColor="@android:color/white"
+			android:textSize="@dimen/text_size_16sp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			android:text="@{viewModel.new}"
+			tools:text="New" />
+
+		<TextView
+			android:id="@+id/show_case_bubble_subtitle"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/margin_10dp"
+			android:gravity="start"
+			android:text="@{viewModel.subtitle}"
+			android:textColor="@android:color/black"
+			android:textSize="@dimen/text_size_16sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/show_case_bubble_new"
+			tools:text="Now you can log into the app, this means ..." />
+
+		<TextView
+			android:id="@+id/show_case_bubble_title"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:gravity="start"
+			android:layout_marginTop="@dimen/margin_10dp"
+			android:text="@{viewModel.title}"
+			android:textColor="@android:color/black"
+			android:textSize="@dimen/text_size_16sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/show_case_bubble_subtitle"
+			tools:text="Example tutorial title" />
+
+		<TextView
+			android:id="@+id/show_case_bubble_text_body"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:gravity="start"
+			android:textColor="@android:color/black"
+			android:textSize="@dimen/text_size_16sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/show_case_bubble_title"
+			app:layout_goneMarginStart="0dp"
+			android:text="@{viewModel.textBody}"
+			tools:text="This is an example text for the extended tutorial bubble's information text. It is below the title." />
+
+		<Button
+			android:id="@+id/show_case_bubble_blue_button"
+			style="@style/ExtendedTutorialTextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/margin_20dp"
+			android:text="@{viewModel.blueButtonText}"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/show_case_bubble_text_body"
+			tools:text="Next tip" />
+
+		<Button
+			android:id="@+id/show_case_bubble_gray_button"
+			style="@style/ExtendedTutorialTextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/margin_20dp"
+			app:layout_constraintBottom_toBottomOf="@+id/show_case_bubble_blue_button"
+			app:layout_constraintStart_toEndOf="@+id/show_case_bubble_blue_button"
+			app:layout_constraintTop_toTopOf="@id/show_case_bubble_blue_button"
+			android:text="@{viewModel.grayButtonText}"
+			tools:text="Skip" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
