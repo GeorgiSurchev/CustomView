@@ -7,7 +7,7 @@
 
 		<variable
 			name="viewModel"
-			type="com.example.customview.cv.bubbleView.ShowCaseBubbleViewModel" />
+			type="com.example.customview.cv.bubbleView.ShowCaseBubbleModel" />
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +36,7 @@
 			android:textSize="@dimen/text_size_16sp"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			android:text="@{viewModel.new}"
+			android:text="@{viewModel.firstTitleText}"
 			tools:text="New" />
 
 		<TextView
@@ -45,7 +45,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/margin_10dp"
 			android:gravity="start"
-			android:text="@{viewModel.subtitle}"
+			android:text="@{viewModel.firstSubtitle}"
 			android:textColor="@android:color/black"
 			android:textSize="@dimen/text_size_16sp"
 			app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,7 @@
 			android:layout_height="wrap_content"
 			android:gravity="start"
 			android:layout_marginTop="@dimen/margin_10dp"
-			android:text="@{viewModel.title}"
+			android:text="@{viewModel.secondTitle}"
 			android:textColor="@android:color/black"
 			android:textSize="@dimen/text_size_16sp"
 			app:layout_constraintEnd_toEndOf="parent"

@@ -15,7 +15,7 @@ class ShowCaseBubbleView @JvmOverloads constructor(
 	private val binding: ShowCaseBubbleLayoutBinding =
 		ShowCaseBubbleLayoutBinding.inflate(LayoutInflater.from(context), this, true)
 
-	private var viewModel: ShowCaseBubbleViewModel? = null
+	private var viewModel: ShowCaseBubbleModel? = null
 		set(value) {
 			field = value
 			binding.viewModel = field
@@ -23,7 +23,7 @@ class ShowCaseBubbleView @JvmOverloads constructor(
 
 	constructor(
 		context: Context,
-		viewModel: ShowCaseBubbleViewModel,
+		viewModel: ShowCaseBubbleModel,
 		showCaseBubbleListener: ShowCaseBubbleListener?
 	) : this(context) {
 		this.viewModel = viewModel

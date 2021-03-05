@@ -139,20 +139,6 @@ class ShowCaseImageView @JvmOverloads constructor(
     }
 
     /**
-     * Setting parameters for focus border
-     *
-     * @param focusBorderColor
-     * @param _focusBorderSize
-     */
-    fun setBorderParameters(focusBorderColor: Int, _focusBorderSize: Int) {
-        focusBorderSize = _focusBorderSize
-        circleBorderPaint.apply {
-            color = focusBorderColor
-            strokeWidth = focusBorderSize.toFloat()
-        }
-    }
-
-    /**
      * Draws background and moving focus area
      *
      * @param canvas draw canvas

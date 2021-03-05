@@ -68,7 +68,7 @@ class ShowCaseView @JvmOverloads constructor(
 	private var focusAnimationEnabled: Boolean = true
 	private var showCaseImageView: ShowCaseImageView? = null
 	private var hasCircularEnterExitAnim = false
-	private var showCaseBubbleViewModel: ShowCaseBubbleViewModel? = null
+	private var showCaseBubbleViewModel: ShowCaseBubbleModel? = null
 	private var showCaseBubbleListener: ShowCaseBubbleListener? = null
 	private var highlightedAreaClickListener: HighlightedAreaClickListener? = null
 	var fadingIn = false
@@ -114,7 +114,7 @@ class ShowCaseView @JvmOverloads constructor(
 		animateInfoBubble: Boolean,
 		delay: Long,
 		hasCircularAnim: Boolean,
-		showCaseBubbleViewModel: ShowCaseBubbleViewModel?,
+		showCaseBubbleModel: ShowCaseBubbleModel?,
 		showCaseBubbleListener: ShowCaseBubbleListener?,
 		highlightedAreaClickListener: HighlightedAreaClickListener?
 	) : this(activity) {
@@ -584,7 +584,6 @@ class ShowCaseView @JvmOverloads constructor(
 		private var mCloseOnTouch = true
 		private var mEnableTouchOnFocusedView: Boolean = false
 		private var fitSystemWindows: Boolean = false
-		private var mFocusBorderSize: Int = 0
 		private var mFocusPositionX: Int = 0
 		private var mFocusPositionY: Int = 0
 		private var mFocusCircleRadius: Int = 0
@@ -596,7 +595,7 @@ class ShowCaseView @JvmOverloads constructor(
 		private var animateInfoBubble = false
 		private var delay: Long = 0
 		private var hasCircularEnterExitAnm = false
-		private var showCaseBubbleViewModel: ShowCaseBubbleViewModel? = null
+		private var showCaseBubbleModel: ShowCaseBubbleModel? = null
 		private var showCaseBubbleListener: ShowCaseBubbleListener? = null
 		private var highlightedAreaClickListener: HighlightedAreaClickListener? = null
 
@@ -713,8 +712,8 @@ class ShowCaseView @JvmOverloads constructor(
 			return this
 		}
 
-		fun setShowCaseBubbleViewModel(showCaseBubbleViewModel: ShowCaseBubbleViewModel): Builder {
-			this.showCaseBubbleViewModel = showCaseBubbleViewModel
+		fun setShowCaseBubbleViewModel(showCaseBubbleModel: ShowCaseBubbleModel): Builder {
+			this.showCaseBubbleModel = showCaseBubbleModel
 			return this
 		}
 
@@ -756,7 +755,7 @@ class ShowCaseView @JvmOverloads constructor(
 				animateInfoBubble = animateInfoBubble,
 				delay = delay,
 				hasCircularAnim = hasCircularEnterExitAnm,
-				showCaseBubbleViewModel = showCaseBubbleViewModel,
+				showCaseBubbleModel = showCaseBubbleModel,
 				showCaseBubbleListener = showCaseBubbleListener,
 				highlightedAreaClickListener = highlightedAreaClickListener
 			)
