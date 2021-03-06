@@ -1,4 +1,4 @@
-package com.example.customview.cv.bubbleView
+package com.example.customview.cv.bubbleview
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -140,7 +140,7 @@ class ShowCaseView @JvmOverloads constructor(
 		this.animateInfoBubble = animateInfoBubble
 		this.delay = delay
 		this.hasCircularEnterExitAnim = hasCircularAnim
-		this.showCaseBubbleViewModel = showCaseBubbleViewModel
+		this.showCaseBubbleViewModel = showCaseBubbleModel
 		this.showCaseBubbleListener = showCaseBubbleListener
 		this.highlightedAreaClickListener = highlightedAreaClickListener
 		initializeParameters()

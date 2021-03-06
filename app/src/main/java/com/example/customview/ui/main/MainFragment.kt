@@ -11,21 +11,29 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.customview.cv.bubbleView.ShowCaseView
+import com.example.customview.cv.bubbleview.ShowCaseView
 import com.example.customview.R
-import com.example.customview.cv.edittextview.IPrefixEditTextListener
+import com.example.customview.cv.currencyconverter.ICurrencyConverter
 import com.example.customview.cv.spinner.SpinarAdapter
+import com.example.customview.cv.viewpager.FlipPageTransformer
+import com.example.customview.cv.viewpager.PagerAdapter
+import com.example.customview.cv.viewpager.ViewPagerCustomDuration
 import com.example.customview.databinding.MainFragmentBinding
+import com.example.customview.ui.main.pagefragments.FirestPageFragment
+import com.example.customview.ui.main.pagefragments.SecondPageFragment
+import com.google.android.material.tabs.TabLayout
+
+private const val FLIP_PAGE_DURATION_MILLIS = 875
 
 class MainFragment : Fragment() {
 
-	companion object {
-
-		fun newInstance() = MainFragment()
-	}
-
 	private lateinit var binding: MainFragmentBinding
 	private lateinit var viewModel: MainViewModel
+	private lateinit var datapter: PagerAdapter
+	private var currencyList = listOf<Currency>()
+	var colorList = listOf<Int>()
+	var pageIndex = 0
+	val convertToEU = pageIndex != 0
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -35,58 +43,141 @@ class MainFragment : Fragment() {
 		binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
 		binding.lifecycleOwner = this
 		binding.mainViewModel = viewModel
-		val colors = requireContext().resources.getIntArray(R.array.colors).toList()
+		currencyList = getListOfCurrency()
+		colorList = requireContext().resources.getIntArray(R.array.colors).toList()
+		observeSpinnerInput()
+		setShowCaseBubbleView()
+		setTabLayout()
+
 		val allCurrency = java.util.Currency.getAvailableCurrencies()
-		val listOfCurrency = getListOfCurrency()
-		val finalList = mutableListOf<Currency>()
+		val finalCurrencyList = mutableListOf<Currency>()
+
 		for (item in allCurrency) {
-			for (items in listOfCurrency) {
+			for (items in currencyList) {
 				if (item.currencyCode == items.symbol) {
-					finalList.add(items.copy(symbol = item.symbol))
+					finalCurrencyList.add(items.copy(symbol = item.symbol))
 				}
 			}
 		}
-		val nameList = finalList.map { it.name }
-		setPostalCodeSpinnerAdapter(nameList)
+		val listOfCurrencyName = finalCurrencyList.map { it.name }
+		setPostalCodeSpinnerAdapter(listOfCurrencyName)
+		initPager(binding.mainCustomViewPager)
+		currencyConverterListener(finalCurrencyList)
 
-		binding.textinputPrefixText.setListener(object : IPrefixEditTextListener {
-			override fun onPrefixClicked() {
-				val currency = finalList.random()
-				binding.textinputPrefixText.changeColor(colors.random(), currency)
+		return binding.root
+	}
 
-				val imm: InputMethodManager =
-					context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-				imm.hideSoftInputFromWindow(binding.textinputPrefixText.windowToken, 0)
-				binding.textinputPrefixText.clearFocus()
-				Toast.makeText(context, currency.name, Toast.LENGTH_SHORT).show()
-			}
-
-			override fun onTextClicked() {
-				binding.textinputPrefixText.changeTextColor(colors.random())
-			}
-		})
-
-		viewModel.codeInputText.observe(viewLifecycleOwner, Observer {
+	private fun observeSpinnerInput() {
+		viewModel.spinnerInputText.observe(viewLifecycleOwner, Observer {
 			it?.let { name ->
-				val names = listOfCurrency.filter { currency ->
+				val names = currencyList.firstOrNull { currency ->
 					currency.name == name
 				}
-				if (names.isNullOrEmpty().not()) binding.textinputPrefixText.changeColor(colors.random(), names.first())
+				if (names != null) {
+					val shouldUpdateFields = binding.mainCurrencyConverter.shouldUpdateFields(
+						colorList.random(),
+						names,
+						convertToEU
+					)
+					if (shouldUpdateFields) {
+						Toast.makeText(context, names.name, Toast.LENGTH_SHORT).show()
+					}
+				}
 			}
 		})
+	}
+
+	private fun setShowCaseBubbleView() {
 		val showCaseBubbleViewModel = viewModel.getShowCaseBubbleViewModel()
 		val showCaseView = ShowCaseView.Builder(requireActivity())
-			.focusOn(binding.textinputPrefixText)
+			.focusOn(binding.mainCurrencyConverter)
 			.hasCircle(true)
 			.animateInfoBubble(true)
 			.setShowCaseBubbleViewModel(showCaseBubbleViewModel)
 			.closeOnTouch(false)
 			.hasCircularAnim(false)
 			.enableTouchOnFocusedView(true)
-			.clickableOn(binding.textinputPrefixText)
+			.clickableOn(binding.mainCurrencyConverter)
 			.build()
-			showCaseView.show()
-		return binding.root
+		showCaseView.show()
+	}
+
+	private fun currencyConverterListener(
+		finalCurrencyList: MutableList<Currency>
+	) {
+		binding.mainCurrencyConverter.setListener(object : ICurrencyConverter {
+			override fun onPrefixClicked() {
+				val currency = finalCurrencyList.random()
+				val color = colorList.random()
+				viewModel.spinnerInputText.value = currency.name
+				viewModel.spinnerTextColor.value = color
+
+				val shouldUpdateFields = binding.mainCurrencyConverter.shouldUpdateFields(color, currency, convertToEU)
+				if (shouldUpdateFields) {
+					Toast.makeText(context, currency.name, Toast.LENGTH_SHORT).show()
+				}
+				val imm: InputMethodManager =
+					context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+				imm.hideSoftInputFromWindow(binding.mainCurrencyConverter.windowToken, 0)
+				binding.mainCurrencyConverter.clearFocus()
+				binding.mainCurencySpinner.clearFocus()
+			}
+
+			override fun onInputNumberClicked() {
+				binding.mainCurrencyConverter.changeTextColor(colorList.random())
+			}
+		})
+	}
+
+	private fun setTabLayout() {
+		binding.mainTabLayout.setupWithViewPager(binding.mainCustomViewPager)
+		binding.mainTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+			override fun onTabReselected(p0: TabLayout.Tab?) {
+				//empty
+			}
+
+			override fun onTabUnselected(p0: TabLayout.Tab?) {
+				//empty
+			}
+
+			override fun onTabSelected(p0: TabLayout.Tab?) {
+				pageIndex = p0?.position ?: 0
+			}
+		})
+	}
+
+	private fun initPager(pager: ViewPagerCustomDuration) {
+		val firstPageFragment = FirestPageFragment.newInstance { onPageClick() }
+		val secondPageFragment = SecondPageFragment.newInstance { onPageClick() }
+		val tabNames = viewModel.getTabNames()
+		datapter = PagerAdapter(childFragmentManager, listOf(firstPageFragment, secondPageFragment), tabNames)
+		pager.adapter = datapter
+		pager.setPageTransformer(false, FlipPageTransformer())
+		pager.setScrollDuration(FLIP_PAGE_DURATION_MILLIS)
+		selectTab()
+	}
+
+	private fun onPageClick() {
+		viewModel.spinnerInputText.value?.let { name ->
+			val names = currencyList.firstOrNull { currency ->
+				currency.name == name
+			}
+			if (names != null) {
+				val shouldUpdateFields = binding.mainCurrencyConverter.shouldUpdateFields(
+					colorList.random(),
+					names,
+					convertToEU
+				)
+				if (shouldUpdateFields) {
+					Toast.makeText(context, names.name, Toast.LENGTH_SHORT).show()
+				}
+			}
+		}
+	}
+
+	private fun selectTab() {
+		val selectPosition = 0
+		binding.mainTabLayout.getTabAt(selectPosition)?.select()
 	}
 
 	private fun setPostalCodeSpinnerAdapter(postCodeAndCityList: List<String>) {
@@ -95,7 +186,7 @@ class MainFragment : Fragment() {
 				context,
 				R.layout.spinner_item, postCodeAndCityList
 			)
-			binding.curencySpinner.setAdapter(adapter)
+			binding.mainCurencySpinner.setAdapter(adapter)
 		}
 	}
 

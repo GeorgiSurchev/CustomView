@@ -1,4 +1,4 @@
-package com.example.customview.cv.bubbleView
+package com.example.customview.cv.bubbleview
 
 data class ShowCaseBubbleModel(
 	val firstTitleText: String,

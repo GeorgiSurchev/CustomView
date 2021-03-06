@@ -2,15 +2,17 @@ package com.example.customview.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.customview.cv.bubbleView.ShowCaseBubbleModel
-import com.example.customview.cv.edittextview.PrefixEditTextViewModel
-import com.example.customview.cv.edittextview.PrefixViewModel
+import com.example.customview.cv.bubbleview.ShowCaseBubbleModel
+import com.example.customview.cv.currencyconverter.PrefixEditTextViewModel
+import com.example.customview.cv.currencyconverter.PrefixViewModel
 
 class MainViewModel : ViewModel() {
 
-	val codeInputText = MutableLiveData<String>()
+	val spinnerInputText = MutableLiveData<String>()
 
-	val prefix = PrefixEditTextViewModel(model = PrefixViewModel("$", "number", 0))
+	val spinnerTextColor = MutableLiveData<Int>()
+
+	val prefix = PrefixEditTextViewModel(model = PrefixViewModel("$", "input"))
 
 	fun getShowCaseBubbleViewModel() = ShowCaseBubbleModel(
 		firstTitleText = "nice",
@@ -20,5 +22,7 @@ class MainViewModel : ViewModel() {
 		blueButtonText = "blue button",
 		grayButtonText = "gray button"
 	)
+
+	fun getTabNames(): List<String> = listOf("First Page","Second Page")
 }
 

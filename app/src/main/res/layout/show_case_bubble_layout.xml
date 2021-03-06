@@ -7,7 +7,7 @@
 
 		<variable
 			name="viewModel"
-			type="com.example.customview.cv.bubbleView.ShowCaseBubbleModel" />
+			type="com.example.customview.cv.bubbleview.ShowCaseBubbleModel" />
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +24,7 @@
 			android:id="@+id/show_case_bubble_new"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:background="@drawable/draw_joker_additional_background"
+			android:background="@drawable/rounded_background"
 			android:backgroundTint="@color/teal_200"
 			android:fontFamily="sans-serif-black"
 			android:gravity="center_horizontal"

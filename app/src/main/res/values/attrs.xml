@@ -4,4 +4,13 @@
 	<declare-styleable name="PrefixEditText">
 		<attr name="prefix" format="string"/>
 	</declare-styleable>
+
+	<!-- Custom attributes for the button -->
+	<declare-styleable name="StyledButton">
+		<attr name="cornerRadius" format="dimension" />
+		<attr name="borderWidth" format="dimension" />
+		<attr name="startColor" format="color" />
+		<attr name="centerColor" format="color" />
+		<attr name="endColor" format="color" />
+	</declare-styleable>
 </resources>

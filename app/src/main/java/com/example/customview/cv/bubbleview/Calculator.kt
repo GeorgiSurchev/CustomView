@@ -1,4 +1,4 @@
-package com.example.customview.cv.bubbleView
+package com.example.customview.cv.bubbleview
 
 import android.app.Activity
 import android.content.Context

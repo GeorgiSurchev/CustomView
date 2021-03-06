@@ -7,7 +7,7 @@
 		<item>@color/teal_200</item>
 		<item>@color/teal_700</item>
 		<item>@color/black</item>
-		<item>@color/white</item>
+		<item>@color/Blue</item>
 		<item>@color/Yellow</item>
 		<item>@color/Red</item>
 		<item>@color/Orange</item>
@@ -16,5 +16,6 @@
 		<item>@color/Pink</item>
 		<item>@color/Gray</item>
 		<item>@color/Bordo</item>
+		<item>@color/white_smoke</item>
 	</array>
 </resources>

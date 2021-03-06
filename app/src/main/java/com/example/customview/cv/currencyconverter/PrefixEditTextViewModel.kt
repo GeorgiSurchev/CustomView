@@ -1,4 +1,4 @@
-package com.example.customview.cv.edittextview
+package com.example.customview.cv.currencyconverter
 
 class PrefixEditTextViewModel(val model: PrefixViewModel) {
 
@@ -7,13 +7,9 @@ class PrefixEditTextViewModel(val model: PrefixViewModel) {
 
 	val inputTextHint: String
 		get() = model.inputTextHint
-
-	val color: Int
-		get() = model.color
 }
 
 data class PrefixViewModel(
 	val prefix: String = "",
-	val inputTextHint: String = "",
-	val color: Int = 0,
+	val inputTextHint: String = ""
 )

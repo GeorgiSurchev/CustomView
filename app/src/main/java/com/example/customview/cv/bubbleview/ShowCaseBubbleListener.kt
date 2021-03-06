@@ -1,4 +1,4 @@
-package com.example.customview.cv.bubbleView
+package com.example.customview.cv.bubbleview
 
 /**
  * A click listener for when [ShowCaseBubbleView] buttons are clicked.
