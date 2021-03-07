@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
 
 	<data>
 
 		<variable
-			name="prefixEditTextViewModel"
-			type="com.example.customview.cv.currencyconverter.PrefixEditTextViewModel" />
+			name="currencyConverterModel"
+			type="com.example.customview.cv.currencyconverter.CurrencyConverterModel" />
 
 		<variable
-			name="prefixEditTextListener"
-			type="com.example.customview.cv.currencyconverter.ICurrencyConverter" />
+			name="currencyConverterListener"
+			type="com.example.customview.cv.currencyconverter.ICurrencyConverterListener" />
 
 	</data>
 
@@ -22,46 +23,55 @@
 			android:id="@+id/currency_converter_prefix"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:onClick="@{() -> prefixEditTextListener.onPrefixClicked()}"
-			android:text="@{prefixEditTextViewModel.prefix}"
+			android:onClick="@{() -> currencyConverterListener.onPrefixClicked()}"
+			android:text="@{currencyConverterModel.prefix}"
 			android:textSize="@dimen/text_size_30sp"
+			android:layout_marginEnd="@dimen/margin_10dp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toStartOf="@+id/currency_converter_input_number"
-			app:layout_constraintHorizontal_bias="0.5"
-			app:layout_constraintHorizontal_chainStyle="packed"
+			app:layout_constraintHorizontal_bias="0"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
 
 		<EditText
 			android:id="@+id/currency_converter_input_number"
-			android:layout_width="wrap_content"
+			android:layout_width="90dp"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="8dp"
-			android:hint="@{prefixEditTextViewModel.inputTextHint}"
-			android:inputType="number"
+			android:layout_marginEnd="@dimen/margin_10dp"
 			android:background="@color/white_smoke"
-			android:maxLines="1"
+			android:hint="@{currencyConverterModel.inputTextHint}"
+			android:inputType="number"
 			android:maxLength="5"
-			android:onClick="@{() -> prefixEditTextListener.onInputNumberClicked()}"
+			android:maxLines="1"
+			android:onClick="@{() -> currencyConverterListener.onInputNumberClicked()}"
 			android:textAlignment="center"
-			android:textSize="@dimen/text_size_16sp"
+			android:textSize="@dimen/text_size_30sp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toStartOf="@+id/currency_converter_result"
-			app:layout_constraintHorizontal_bias="0.5"
-			app:layout_constraintStart_toEndOf="@+id/currency_converter_prefix"
 			app:layout_constraintTop_toTopOf="parent" />
 
 		<TextView
 			android:id="@+id/currency_converter_result"
+			android:layout_width="120dp"
+			android:layout_height="wrap_content"
+			android:hint="@{currencyConverterModel.resultTextHint}"
+			android:maxLines="1"
+			android:textSize="@dimen/text_size_30sp"
+			android:layout_marginEnd="4dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@id/currency_converter_result_name"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<TextView
+			android:id="@+id/currency_converter_result_name"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="8dp"
+			android:text="@{currencyConverterModel.resultName}"
+			android:textColor="@color/Red"
 			android:maxLines="1"
 			android:textSize="@dimen/text_size_30sp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.5"
-			app:layout_constraintStart_toEndOf="@+id/currency_converter_input_number"
 			app:layout_constraintTop_toTopOf="parent" />
 
 	</androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,19 +21,21 @@
 			android:id="@+id/main_currency_converter"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="20dp"
+			android:layout_marginTop="@dimen/margin_20dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			app:viewModel="@{mainViewModel.prefix}" />
+			app:viewModel="@{mainViewModel.currencyConverterModel}" />
 
 		<com.example.customview.cv.spinner.AdjustedAutoCompleteTextView
 			android:id="@+id/main_curency_spinner"
-			android:layout_width="250dp"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			style="@style/AutoCompleteTextView"
 			android:background="@color/white_smoke"
 			android:textSize="@dimen/text_size_16sp"
+			android:textColor="@color/black"
+			android:hint="@{mainViewModel.spinnerHintText}"
 			android:text="@={mainViewModel.spinnerInputText}"
 			android:layout_marginTop="@dimen/margin_30dp"
 			android:completionThreshold="1"

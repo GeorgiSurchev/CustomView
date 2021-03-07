@@ -1,7 +1,7 @@
 package com.example.customview.cv.currencyconverter
 
 @FunctionalInterface
-interface ICurrencyConverter {
+interface ICurrencyConverterListener {
 
 	fun onPrefixClicked()
 	fun onInputNumberClicked()

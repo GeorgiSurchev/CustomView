@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.customview.cv.bubbleview.ShowCaseView
 import com.example.customview.R
-import com.example.customview.cv.currencyconverter.ICurrencyConverter
+import com.example.customview.cv.currencyconverter.ICurrencyConverterListener
 import com.example.customview.cv.spinner.SpinarAdapter
 import com.example.customview.cv.viewpager.FlipPageTransformer
 import com.example.customview.cv.viewpager.PagerAdapter
@@ -32,8 +33,10 @@ class MainFragment : Fragment() {
 	private lateinit var datapter: PagerAdapter
 	private var currencyList = listOf<Currency>()
 	var colorList = listOf<Int>()
+	var currentColor = 0
 	var pageIndex = 0
-	val convertToEU = pageIndex != 0
+	val convertToEU
+		get() = pageIndex != 0
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +51,7 @@ class MainFragment : Fragment() {
 		observeSpinnerInput()
 		setShowCaseBubbleView()
 		setTabLayout()
-
+		currentColor = ContextCompat.getColor(requireContext(), R.color.black)
 		val allCurrency = java.util.Currency.getAvailableCurrencies()
 		val finalCurrencyList = mutableListOf<Currency>()
 
@@ -75,7 +78,7 @@ class MainFragment : Fragment() {
 				}
 				if (names != null) {
 					val shouldUpdateFields = binding.mainCurrencyConverter.shouldUpdateFields(
-						colorList.random(),
+						currentColor,
 						names,
 						convertToEU
 					)
@@ -105,15 +108,15 @@ class MainFragment : Fragment() {
 	private fun currencyConverterListener(
 		finalCurrencyList: MutableList<Currency>
 	) {
-		binding.mainCurrencyConverter.setListener(object : ICurrencyConverter {
+		binding.mainCurrencyConverter.setListener(object : ICurrencyConverterListener {
 			override fun onPrefixClicked() {
 				val currency = finalCurrencyList.random()
-				val color = colorList.random()
-				viewModel.spinnerInputText.value = currency.name
-				viewModel.spinnerTextColor.value = color
+				currentColor = colorList.random()
 
-				val shouldUpdateFields = binding.mainCurrencyConverter.shouldUpdateFields(color, currency, convertToEU)
+				val shouldUpdateFields = binding.mainCurrencyConverter.shouldUpdateFields(currentColor, currency, convertToEU)
 				if (shouldUpdateFields) {
+					viewModel.spinnerInputText.value = currency.name
+					viewModel.spinnerTextColor.value = currentColor
 					Toast.makeText(context, currency.name, Toast.LENGTH_SHORT).show()
 				}
 				val imm: InputMethodManager =
@@ -147,8 +150,8 @@ class MainFragment : Fragment() {
 	}
 
 	private fun initPager(pager: ViewPagerCustomDuration) {
-		val firstPageFragment = FirestPageFragment.newInstance { onPageClick() }
-		val secondPageFragment = SecondPageFragment.newInstance { onPageClick() }
+		val firstPageFragment = FirestPageFragment.newInstance { onPageButtonClick() }
+		val secondPageFragment = SecondPageFragment.newInstance { onPageButtonClick() }
 		val tabNames = viewModel.getTabNames()
 		datapter = PagerAdapter(childFragmentManager, listOf(firstPageFragment, secondPageFragment), tabNames)
 		pager.adapter = datapter
@@ -157,19 +160,21 @@ class MainFragment : Fragment() {
 		selectTab()
 	}
 
-	private fun onPageClick() {
+	private fun onPageButtonClick() {
 		viewModel.spinnerInputText.value?.let { name ->
 			val names = currencyList.firstOrNull { currency ->
 				currency.name == name
 			}
 			if (names != null) {
 				val shouldUpdateFields = binding.mainCurrencyConverter.shouldUpdateFields(
-					colorList.random(),
+					currentColor,
 					names,
 					convertToEU
 				)
 				if (shouldUpdateFields) {
 					Toast.makeText(context, names.name, Toast.LENGTH_SHORT).show()
+					binding.mainCurrencyConverter.clearFocus()
+					binding.mainCurencySpinner.clearFocus()
 				}
 			}
 		}
