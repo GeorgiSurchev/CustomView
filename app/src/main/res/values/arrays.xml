@@ -15,4 +15,69 @@
 		<item>@color/Pink</item>
 		<item>@color/Bordo</item>
 	</array>
+
+	<array name="currency_name_list">
+		<item>@string/Australian_dollar</item>
+		<item>@string/Brazilian_Real</item>
+		<item>@string/Canadian_dollar</item>
+		<item>@string/Swiss_franc</item>
+		<item>@string/Chinese_renminbi_yuan</item>
+		<item>@string/Czech_koruna</item>
+		<item>@string/Danish_krone</item>
+		<item>@string/British_pound</item>
+		<item>@string/Hong_Kong_Dollar</item>
+		<item>@string/Croatian_Kuna</item>
+		<item>@string/Hungarian_forint</item>
+		<item>@string/Israeli_shekel</item>
+		<item>@string/Indian_rupee</item>
+		<item>@string/Icelandic_krona</item>
+		<item>@string/Japanese_yen</item>
+		<item>@string/South_Korean_won</item>
+		<item>@string/Mexican_peso</item>
+		<item>@string/Malaysian_ringitis</item>
+		<item>@string/New_Zealand_Dollar</item>
+		<item>@string/Polish_zloty</item>
+		<item>@string/Romanian_leu</item>
+		<item>@string/Russian_ruble</item>
+		<item>@string/Swedish_krona</item>
+		<item>@string/Singapore_dollar</item>
+		<item>@string/Thai_baht</item>
+		<item>@string/Turkish_lira</item>
+		<item>@string/US_dollar</item>
+		<item>@string/South_African_Rand</item>
+	</array>
+
+	<array name="country_code_list">
+		<item>@string/AUD</item>
+		<item>@string/BRL</item>
+		<item>@string/CAD</item>
+		<item>@string/CHF</item>
+		<item>@string/CNY</item>
+		<item>@string/CZK</item>
+		<item>@string/DKK</item>
+		<item>@string/GBP</item>
+		<item>@string/HKD</item>
+		<item>@string/HRK</item>
+		<item>@string/HUF</item>
+		<item>@string/ILS</item>
+		<item>@string/INR</item>
+		<item>@string/ISK</item>
+		<item>@string/JPY</item>
+		<item>@string/KRW</item>
+		<item>@string/MXN</item>
+		<item>@string/MYR</item>
+		<item>@string/NOK</item>
+		<item>@string/NZD</item>
+		<item>@string/PHP</item>
+		<item>@string/PLN</item>
+		<item>@string/RON</item>
+		<item>@string/RUB</item>
+		<item>@string/SEK</item>
+		<item>@string/SGD</item>
+		<item>@string/THB</item>
+		<item>@string/TRY</item>
+		<item>@string/USD</item>
+		<item>@string/ZAR</item>
+	</array>
+
 </resources>

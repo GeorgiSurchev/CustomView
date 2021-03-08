@@ -7,7 +7,7 @@ import com.example.customview.cv.currencyconverter.CurrencyConverterModel
 
 class MainViewModel : ViewModel() {
 
-	val spinnerInputText = MutableLiveData<String>()
+	val spinnerInputText = MutableLiveData<String>("US Dollar")
 
 	val spinnerTextColor = MutableLiveData<Int>()
 

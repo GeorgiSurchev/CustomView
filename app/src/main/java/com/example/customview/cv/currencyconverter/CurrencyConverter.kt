@@ -26,7 +26,7 @@ class CurrencyConverter @JvmOverloads constructor(
 		binding.currencyConverterListener = listener
 	}
 
-	fun shouldUpdateFields(color: Int, currency: MainFragment.Currency, convertToEU: Boolean = false): Boolean {
+	fun updateFields(color: Int, currency: MainFragment.Currency, convertToEU: Boolean = false): Boolean {
 		val text = binding.currencyConverterInputNumber.text
 		if (text.isNullOrBlank()) return false
 		val blueColor = context.resources.getColor(R.color.Blue)
@@ -48,6 +48,8 @@ class CurrencyConverter @JvmOverloads constructor(
 		binding.currencyConverterResult.setTextColor(resultColor)
 		return true
 	}
+
+	fun isInputNumberNotEmpty() = binding.currencyConverterInputNumber.text.isNotBlank()
 
 	fun changeTextColor(color: Int) {
 		binding.currencyConverterInputNumber.setTextColor(color)
