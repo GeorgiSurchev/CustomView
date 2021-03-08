@@ -7,7 +7,12 @@ import androidx.annotation.AttrRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.customview.R
 import com.example.customview.databinding.CurrencyConverterLayoutBinding
+import com.example.customview.ui.main.DEFAULT_RESULT_NAME
 import com.example.customview.ui.main.MainFragment
+
+private const val EURO_MULTIPLIER =  0.51
+private const val FORMAT_STYLE = "%.3f"
+private const val EURO_CURRENCY_CODE = "EUR"
 
 class CurrencyConverter @JvmOverloads constructor(
 	context: Context,
@@ -26,17 +31,21 @@ class CurrencyConverter @JvmOverloads constructor(
 		binding.currencyConverterListener = listener
 	}
 
-	fun updateFields(color: Int, currency: MainFragment.Currency, convertToEU: Boolean = false): Boolean {
+	fun updateFields(color: Int, currency: MainFragment.Currency, convertToEU: Boolean = false) {
 		val text = binding.currencyConverterInputNumber.text
-		if (text.isNullOrBlank()) return false
+		if (text.isNullOrBlank()) return
 		val blueColor = context.resources.getColor(R.color.Blue)
 		val redColor = context.resources.getColor(R.color.Red)
-		val (levaOrEuroString, resultColor) = if (convertToEU) Pair("EUR", blueColor) else Pair("BGN", redColor)
+		val (levaOrEuroString, resultColor) = if (convertToEU) {
+			Pair(EURO_CURRENCY_CODE, blueColor)
+		} else {
+			Pair(DEFAULT_RESULT_NAME, redColor)
+		}
 		val resultInLeva = text.toString().toDouble() * currency.bgn
 		val convertResult = if (convertToEU) {
-			String.format("%.3f", resultInLeva * 0.51)
+			String.format(FORMAT_STYLE, resultInLeva * EURO_MULTIPLIER)
 		} else {
-			String.format("%.3f", resultInLeva)
+			String.format(FORMAT_STYLE, resultInLeva)
 		}
 		binding.currencyConverterPrefix.text = currency.symbol
 		binding.currencyConverterResult.text = convertResult
@@ -46,7 +55,6 @@ class CurrencyConverter @JvmOverloads constructor(
 		binding.currencyConverterResultName.text = levaOrEuroString
 		binding.currencyConverterResultName.setTextColor(resultColor)
 		binding.currencyConverterResult.setTextColor(resultColor)
-		return true
 	}
 
 	fun isInputNumberNotEmpty() = binding.currencyConverterInputNumber.text.isNotBlank()
