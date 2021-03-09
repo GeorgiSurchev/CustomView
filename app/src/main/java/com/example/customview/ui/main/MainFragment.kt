@@ -85,14 +85,14 @@ class MainFragment : Fragment() {
 	private fun setShowCaseBubbleView() {
 		val showCaseBubbleViewModel = viewModel.getShowCaseBubbleViewModel()
 		val showCaseView = ShowCaseView.Builder(requireActivity())
-			.focusOn(binding.mainCurrencyConverter)
+			.focusOn(binding.mainCurrencyConverter.binding.currencyConverterInputNumber)
 			.hasCircle(true)
 			.animateInfoBubble(true)
 			.setShowCaseBubbleViewModel(showCaseBubbleViewModel)
 			.closeOnTouch(false)
 			.hasCircularAnim(false)
 			.enableTouchOnFocusedView(true)
-			.clickableOn(binding.mainCurrencyConverter)
+			.clickableOn(binding.mainCurrencyConverter.binding.currencyConverterInputNumber)
 			.build()
 		showCaseView.show()
 	}

@@ -6,13 +6,20 @@ import com.example.customview.cv.bubbleview.ShowCaseBubbleModel
 import com.example.customview.cv.currencyconverter.CurrencyConverterModel
 
 private const val FIRST_PAGE_TITLE = "BGN LEV"
-private const val SECOND_PAGE_TITLE = "BGN LEV"
+private const val SECOND_PAGE_TITLE = "EURO"
 private const val DEFAULT_PREFIX_SYMBOL = "$"
 const val DEFAULT_RESULT_NAME = "BGN"
 private const val INPUT_TEXT_HINT = "Input"
 private const val RESULT_TEXT_HINT = "Result"
 const val DEFAULT_SPINNER_INPUT_TEXT = "US Dollar"
 private const val DEFAULT_SPINNER_TEXT_HINT = "Input your currency name here"
+private const val BUBBLE_FIRST_TITLE_TEXT = "This is currency converter"
+private const val BUBBLE_FIRST_SUBTITLE_TEXT = "Write number of currency here"
+private const val BUBBLE_SECOND_TITLE_TEXT = "Your have two option - lev or Euro"
+private const val BUBBLE_TITLE_BODY =
+	"When you cliched in prefix currency will be change randomly and the new result will automatically appear"
+private const val BLUE_BUTTON_TEXT = "I agree"
+private const val GRAY_BUTTON_TEXT = "Cancel"
 
 class MainViewModel : ViewModel() {
 
@@ -30,12 +37,12 @@ class MainViewModel : ViewModel() {
 	)
 
 	fun getShowCaseBubbleViewModel() = ShowCaseBubbleModel(
-		firstTitleText = "nice",
-		firstSubtitle = "nice",
-		secondTitle = "nice",
-		textBody = "very very nice",
-		blueButtonText = "blue button",
-		grayButtonText = "gray button"
+		firstTitleText = BUBBLE_FIRST_TITLE_TEXT,
+		firstSubtitle = BUBBLE_FIRST_SUBTITLE_TEXT,
+		secondTitle = BUBBLE_SECOND_TITLE_TEXT,
+		textBody = BUBBLE_TITLE_BODY,
+		blueButtonText = BLUE_BUTTON_TEXT,
+		grayButtonText = GRAY_BUTTON_TEXT
 	)
 
 	fun getTabNames(): List<String> = listOf(FIRST_PAGE_TITLE, SECOND_PAGE_TITLE)

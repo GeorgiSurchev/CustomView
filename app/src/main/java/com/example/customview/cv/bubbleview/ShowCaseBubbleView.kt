@@ -40,5 +40,8 @@ class ShowCaseBubbleView @JvmOverloads constructor(
 		binding.showCaseBubbleGrayButton.setOnClickListener {
 			listener?.onGrayButtonClick()
 		}
+		binding.showCaseBubbleBlueButton.setOnClickListener {
+			listener?.onBlueButtonClick()
+		}
 	}
 }

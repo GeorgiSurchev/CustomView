@@ -207,15 +207,10 @@ class ShowCaseView @JvmOverloads constructor(
 					ViewGroup.LayoutParams.MATCH_PARENT
 				)
 				root?.addView(this)
-
 				setupTouchListener()
-
 				setCalculatorParams()
-
 				addFancyImageView()
-
 				inflateContent()
-
 				startEnterAnimation()
 			}
 		}, delay)
@@ -271,9 +266,7 @@ class ShowCaseView @JvmOverloads constructor(
 						return@OnTouchListener false
 					}
 
-					closeOnTouch -> {
-						hide()
-					}
+					closeOnTouch -> hide()
 				}
 			}
 			true
@@ -381,6 +374,11 @@ class ShowCaseView @JvmOverloads constructor(
 	private fun getActualBubbleListener() = object : ShowCaseBubbleListener {
 		override fun onGrayButtonClick() {
 			if (animating) return
+			hide()
+			showCaseBubbleListener?.onGrayButtonClick()
+		}
+
+		override fun onBlueButtonClick() {
 			hide()
 			showCaseBubbleListener?.onGrayButtonClick()
 		}

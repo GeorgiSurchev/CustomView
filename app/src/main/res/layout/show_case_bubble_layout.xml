@@ -87,10 +87,11 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/margin_20dp"
+			android:textColor="@color/Blue"
 			android:text="@{viewModel.blueButtonText}"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/show_case_bubble_text_body"
-			tools:text="Next tip" />
+			tools:text="I agree" />
 
 		<Button
 			android:id="@+id/show_case_bubble_gray_button"
@@ -98,11 +99,12 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/margin_20dp"
+			android:textColor="@color/Gray"
 			app:layout_constraintBottom_toBottomOf="@+id/show_case_bubble_blue_button"
 			app:layout_constraintStart_toEndOf="@+id/show_case_bubble_blue_button"
 			app:layout_constraintTop_toTopOf="@id/show_case_bubble_blue_button"
 			android:text="@{viewModel.grayButtonText}"
-			tools:text="Skip" />
+			tools:text="Cancel" />
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
