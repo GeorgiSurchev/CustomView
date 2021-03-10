@@ -4,6 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools">
 
 	<data>
+
 		<variable
 			name="mainViewModel"
 			type="com.example.customview.ui.main.MainViewModel" />
@@ -12,59 +13,39 @@
 
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:id="@+id/container_main"
-		android:background="@color/white"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		android:background="@color/white"
 		tools:context=".ui.main.MainFragment">
+
+		<com.example.customview.cv.spinner.AdjustedAutoCompleteTextView
+			android:id="@+id/main_curency_spinner"
+			style="@style/AutoCompleteTextView"
+			android:layout_width="200dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/margin_30dp"
+			android:background="@color/white_smoke"
+			android:completionThreshold="1"
+			android:hint="@{mainViewModel.spinnerHintText}"
+			android:imeOptions="actionNext"
+			android:text="@={mainViewModel.spinnerInputText}"
+			android:textColor="@color/black"
+			android:textSize="@dimen/text_size_16sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:setColor="@{mainViewModel.spinnerTextColor}" />
 
 		<com.example.customview.cv.currencyconverter.CurrencyConverter
 			android:id="@+id/main_currency_converter"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/margin_20dp"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintEnd_toEndOf="@+id/main_curency_spinner"
+			app:layout_constraintStart_toStartOf="@+id/main_curency_spinner"
+			app:layout_constraintTop_toBottomOf="@+id/main_curency_spinner"
 			app:viewModel="@{mainViewModel.currencyConverterModel}" />
 
-		<com.example.customview.cv.spinner.AdjustedAutoCompleteTextView
-			android:id="@+id/main_curency_spinner"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			style="@style/AutoCompleteTextView"
-			android:background="@color/white_smoke"
-			android:textSize="@dimen/text_size_16sp"
-			android:textColor="@color/black"
-			android:hint="@{mainViewModel.spinnerHintText}"
-			android:text="@={mainViewModel.spinnerInputText}"
-			android:layout_marginTop="@dimen/margin_30dp"
-			android:completionThreshold="1"
-			android:imeOptions="actionNext"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/main_currency_converter"
-			app:setColor="@{mainViewModel.spinnerTextColor}"/>
-
-		<com.example.customview.cv.viewpager.ViewPagerCustomDuration
-			android:id="@+id/main_custom_viewPager"
-			android:layout_width="0dp"
-			android:layout_height="0dp"
-			app:layout_behavior="@string/appbar_scrolling_view_behavior"
-			app:layout_constraintBottom_toTopOf="@+id/main_tab_layout"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/main_curency_spinner" />
-
-		<com.google.android.material.tabs.TabLayout
-			android:id="@+id/main_tab_layout"
-			style="@style/ViewPagerStyle"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			app:layout_constraintTop_toBottomOf="@id/main_custom_viewPager"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:tabSelectedTextColor="@color/black" />
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -12,7 +12,7 @@ const val DEFAULT_RESULT_NAME = "BGN"
 private const val INPUT_TEXT_HINT = "Input"
 private const val RESULT_TEXT_HINT = "Result"
 const val DEFAULT_SPINNER_INPUT_TEXT = "US Dollar"
-private const val DEFAULT_SPINNER_TEXT_HINT = "Input your currency name here"
+private const val DEFAULT_SPINNER_TEXT_HINT = "Select currency"
 private const val BUBBLE_FIRST_TITLE_TEXT = "This is currency converter"
 private const val BUBBLE_FIRST_SUBTITLE_TEXT = "Write number of currency here"
 private const val BUBBLE_SECOND_TITLE_TEXT = "Your have two option - lev or Euro"
@@ -44,8 +44,6 @@ class MainViewModel : ViewModel() {
 		blueButtonText = BLUE_BUTTON_TEXT,
 		grayButtonText = GRAY_BUTTON_TEXT
 	)
-
-	fun getTabNames(): List<String> = listOf(FIRST_PAGE_TITLE, SECOND_PAGE_TITLE)
 
 	fun listOfCurrencyPerUnitInLeva() = listOf(
 		1.26821,

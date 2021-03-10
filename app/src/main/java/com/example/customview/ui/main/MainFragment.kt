@@ -15,21 +15,12 @@ import com.example.customview.R
 import com.example.customview.cv.bubbleview.ShowCaseView
 import com.example.customview.cv.currencyconverter.ICurrencyConverterListener
 import com.example.customview.cv.spinner.SpinarAdapter
-import com.example.customview.cv.viewpager.FlipPageTransformer
-import com.example.customview.cv.viewpager.PagerAdapter
-import com.example.customview.cv.viewpager.ViewPagerCustomDuration
 import com.example.customview.databinding.MainFragmentBinding
-import com.example.customview.ui.main.pagefragments.FirestPageFragment
-import com.example.customview.ui.main.pagefragments.SecondPageFragment
-import com.google.android.material.tabs.TabLayout
-
-private const val FLIP_PAGE_DURATION_MILLIS = 875
 
 class MainFragment : Fragment() {
 
 	private lateinit var binding: MainFragmentBinding
 	private lateinit var viewModel: MainViewModel
-	private lateinit var datapter: PagerAdapter
 	private var finalCurrencyList = mutableListOf<Currency>()
 	private var colorList = listOf<Int>()
 	private var currentColor = 0
@@ -49,11 +40,9 @@ class MainFragment : Fragment() {
 		colorList = requireContext().resources.getIntArray(R.array.colors).toList()
 		observeSpinnerInput()
 		setShowCaseBubbleView()
-		setTabLayout()
 		currentColor = ContextCompat.getColor(requireContext(), R.color.black)
 		setFinalListOfCurrency()
-		setCurencySpinnerAdapter()
-		initPager(binding.mainCustomViewPager)
+		setCurrencySpinnerAdapter()
 		currencyConverterListener(finalCurrencyList)
 
 		return binding.root
@@ -132,40 +121,6 @@ class MainFragment : Fragment() {
 		binding.mainCurencySpinner.clearFocus()
 	}
 
-	private fun setTabLayout() {
-		binding.mainTabLayout.setupWithViewPager(binding.mainCustomViewPager)
-		binding.mainTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-			override fun onTabReselected(p0: TabLayout.Tab?) {
-				//empty
-			}
-
-			override fun onTabUnselected(p0: TabLayout.Tab?) {
-				//empty
-			}
-
-			override fun onTabSelected(p0: TabLayout.Tab?) {
-				pageIndex = p0?.position ?: 0
-			}
-		})
-	}
-
-	private fun initPager(pager: ViewPagerCustomDuration) {
-		val firstPageFragment = FirestPageFragment.newInstance { onPageButtonClick() }
-		val secondPageFragment = SecondPageFragment.newInstance { onPageButtonClick() }
-		val tabNames = viewModel.getTabNames()
-		datapter = PagerAdapter(childFragmentManager, listOf(firstPageFragment, secondPageFragment), tabNames)
-		pager.adapter = datapter
-		pager.setPageTransformer(false, FlipPageTransformer())
-		pager.setScrollDuration(FLIP_PAGE_DURATION_MILLIS)
-		selectTab()
-	}
-
-	private fun onPageButtonClick() {
-		viewModel.spinnerInputText.value?.let {
-			shouldUpdateAllFields(it)
-		}
-	}
-
 	private fun shouldUpdateAllFields(name: String) {
 		val names = finalCurrencyList.firstOrNull { currency ->
 			currency.name == name
@@ -180,12 +135,7 @@ class MainFragment : Fragment() {
 		}
 	}
 
-	private fun selectTab() {
-		val selectPosition = 0
-		binding.mainTabLayout.getTabAt(selectPosition)?.select()
-	}
-
-	private fun setCurencySpinnerAdapter() {
+	private fun setCurrencySpinnerAdapter() {
 		val listOfCurrencyName = finalCurrencyList.map { it.name }
 		context?.let { context ->
 			val adapter = SpinarAdapter(
@@ -196,7 +146,6 @@ class MainFragment : Fragment() {
 			binding.mainCurencySpinner.setAdapter(adapter)
 		}
 	}
-
 
 	data class Currency(
 		val name: String = "",

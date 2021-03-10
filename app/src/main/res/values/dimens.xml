@@ -3,7 +3,7 @@
 	<dimen name="spinner_drop_down_max_height">144dp</dimen>
 	<dimen name="text_size_15sp">15sp</dimen>
 	<dimen name="text_size_16sp">16sp</dimen>
-	<dimen name="text_size_30sp">24sp</dimen>
+	<dimen name="text_size_30sp">30sp</dimen>
 	<dimen name="padding_5dp">5dp</dimen>
 	<dimen name="showcase_view_bubble_layout_margin_start_end">32dp</dimen>
 	<dimen name="padding_8dp">8dp</dimen>
@@ -15,4 +15,6 @@
 	<dimen name="margin_30dp">30dp</dimen>
 	<dimen name="showcase_view_triangle_width_height">25dp</dimen>
 	<dimen name="margin_16dp">16dp</dimen>
+	<dimen name="divider_view_height">1dp</dimen>
+
 </resources>

@@ -58,4 +58,5 @@
 	<string name="TRY">TRY</string>
 	<string name="USD">USD</string>
 	<string name="ZAR">ZAR</string>
+	<string name="input_number_default_value">0</string>
 </resources>
