@@ -69,6 +69,7 @@ class ShowCaseView @JvmOverloads constructor(
 	private var showCaseImageView: ShowCaseImageView? = null
 	private var hasCircularEnterExitAnim = false
 	private var showCaseBubbleViewModel: ShowCaseBubbleModel? = null
+	private var stateListener: OnShowCaseStateListener? = null
 	private var showCaseBubbleListener: ShowCaseBubbleListener? = null
 	private var highlightedAreaClickListener: HighlightedAreaClickListener? = null
 	var fadingIn = false
@@ -116,6 +117,7 @@ class ShowCaseView @JvmOverloads constructor(
 		hasCircularAnim: Boolean,
 		showCaseBubbleModel: ShowCaseBubbleModel?,
 		showCaseBubbleListener: ShowCaseBubbleListener?,
+		stateListener:OnShowCaseStateListener?,
 		highlightedAreaClickListener: HighlightedAreaClickListener?
 	) : this(activity) {
 
@@ -142,6 +144,7 @@ class ShowCaseView @JvmOverloads constructor(
 		this.hasCircularEnterExitAnim = hasCircularAnim
 		this.showCaseBubbleViewModel = showCaseBubbleModel
 		this.showCaseBubbleListener = showCaseBubbleListener
+		this.stateListener = stateListener
 		this.highlightedAreaClickListener = highlightedAreaClickListener
 		initializeParameters()
 	}
@@ -173,6 +176,10 @@ class ShowCaseView @JvmOverloads constructor(
 		} else {
 			focus()
 		}
+	}
+
+	fun dismiss() {
+		removeView()
 	}
 
 	private fun focus() {
@@ -213,6 +220,7 @@ class ShowCaseView @JvmOverloads constructor(
 				inflateContent()
 				startEnterAnimation()
 			}
+			stateListener?.onShow()
 		}, delay)
 	}
 
@@ -330,6 +338,7 @@ class ShowCaseView @JvmOverloads constructor(
 		} else {
 			doFadeOutAnimation()
 		}
+		stateListener?.onHide()
 	}
 
 	private fun doFadeOutAnimation() {
@@ -557,6 +566,7 @@ class ShowCaseView @JvmOverloads constructor(
 	 * Removes ShowCaseView view from activity root view
 	 */
 	fun removeView() {
+		stateListener?.onHide()
 		if (showCaseImageView != null) showCaseImageView = null
 		root?.removeView(this)
 	}
@@ -595,6 +605,7 @@ class ShowCaseView @JvmOverloads constructor(
 		private var hasCircularEnterExitAnm = false
 		private var showCaseBubbleModel: ShowCaseBubbleModel? = null
 		private var showCaseBubbleListener: ShowCaseBubbleListener? = null
+		private var stateListener: OnShowCaseStateListener? = null
 		private var highlightedAreaClickListener: HighlightedAreaClickListener? = null
 
 		/**
@@ -720,6 +731,11 @@ class ShowCaseView @JvmOverloads constructor(
 			return this
 		}
 
+		fun setStateListener(stateListener: OnShowCaseStateListener): Builder {
+			this.stateListener = stateListener
+			return this
+		}
+
 		fun setHighlightedAreaClickListener(highlightedAreaClickListener: HighlightedAreaClickListener): Builder {
 			this.highlightedAreaClickListener = highlightedAreaClickListener
 			return this
@@ -755,10 +771,27 @@ class ShowCaseView @JvmOverloads constructor(
 				hasCircularAnim = hasCircularEnterExitAnm,
 				showCaseBubbleModel = showCaseBubbleModel,
 				showCaseBubbleListener = showCaseBubbleListener,
+				stateListener = stateListener,
 				highlightedAreaClickListener = highlightedAreaClickListener
 			)
 		}
 	}
+}
+
+/**
+ * A listener for then the this [ShowCaseView] is being shown or hidden.
+ */
+interface OnShowCaseStateListener {
+
+	/**
+	 * Invoked when this [ShowCaseView] is shown.
+	 */
+	fun onShow()
+
+	/**
+	 * Invoked when this [ShowCaseView] is hidden.
+	 */
+	fun onHide()
 }
 
 /**

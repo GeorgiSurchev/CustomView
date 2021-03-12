@@ -10,7 +10,7 @@ import com.example.customview.databinding.CurrencyConverterLayoutBinding
 import com.example.customview.ui.main.DEFAULT_RESULT_NAME
 import com.example.customview.ui.main.MainFragment
 
-private const val EURO_MULTIPLIER =  0.51
+private const val EURO_MULTIPLIER = 0.51
 private const val FORMAT_STYLE = "%.3f"
 private const val EURO_CURRENCY_CODE = "EUR"
 
@@ -31,22 +31,26 @@ class CurrencyConverter @JvmOverloads constructor(
 		binding.currencyConverterListener = listener
 	}
 
-	fun updateFields(color: Int, currency: MainFragment.Currency, convertToEU: Boolean = false) {
+	fun updateFields(color: Int, currency: Currency, convertToEU: Boolean = false) {
 		val text = binding.currencyConverterInputNumber.text
 		if (text.isNullOrBlank()) return
 		val blueColor = context.resources.getColor(R.color.Blue)
 		val redColor = context.resources.getColor(R.color.Red)
-		val (levaOrEuroString, resultColor) = if (convertToEU) {
-			Pair(EURO_CURRENCY_CODE, blueColor)
-		} else {
-			Pair(DEFAULT_RESULT_NAME, redColor)
-		}
 		val resultInLeva = text.toString().toDouble() * currency.bgn
-		val convertResult = if (convertToEU) {
-			String.format(FORMAT_STYLE, resultInLeva * EURO_MULTIPLIER)
+		val (levaOrEuroString, resultColor, convertResult) = if (convertToEU) {
+			Triple(
+				first = EURO_CURRENCY_CODE,
+				second = blueColor,
+				third = String.format(FORMAT_STYLE, resultInLeva * EURO_MULTIPLIER)
+			)
 		} else {
-			String.format(FORMAT_STYLE, resultInLeva)
+			Triple(
+				first = DEFAULT_RESULT_NAME,
+				second = redColor,
+				third = String.format(FORMAT_STYLE, resultInLeva)
+			)
 		}
+
 		binding.currencyConverterPrefix.text = currency.symbol
 		binding.currencyConverterResult.text = convertResult
 		binding.currencyConverterPrefix.setTextColor(color)

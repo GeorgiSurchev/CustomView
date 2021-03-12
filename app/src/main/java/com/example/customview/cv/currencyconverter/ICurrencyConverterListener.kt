@@ -5,4 +5,6 @@ interface ICurrencyConverterListener {
 
 	fun onPrefixClicked()
 	fun onInputNumberClicked()
+	fun onBGNButtonClicked()
+	fun onEuroButtonClicked()
 }

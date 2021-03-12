@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.example.customview.cv.bubbleview.ShowCaseBubbleModel
 import com.example.customview.cv.currencyconverter.CurrencyConverterModel
 
-private const val FIRST_PAGE_TITLE = "BGN LEV"
-private const val SECOND_PAGE_TITLE = "EURO"
 private const val DEFAULT_PREFIX_SYMBOL = "$"
 const val DEFAULT_RESULT_NAME = "BGN"
 private const val INPUT_TEXT_HINT = "Input"
