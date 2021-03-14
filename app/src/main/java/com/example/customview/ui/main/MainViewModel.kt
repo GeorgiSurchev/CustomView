@@ -11,13 +11,20 @@ private const val INPUT_TEXT_HINT = "Input"
 private const val RESULT_TEXT_HINT = "Result"
 const val DEFAULT_SPINNER_INPUT_TEXT = "US Dollar"
 private const val DEFAULT_SPINNER_TEXT_HINT = "Select currency"
-private const val BUBBLE_FIRST_TITLE_TEXT = "This is currency converter"
-private const val BUBBLE_FIRST_SUBTITLE_TEXT = "Write number of currency here"
-private const val BUBBLE_SECOND_TITLE_TEXT = "Your have two option - lev or Euro"
-private const val BUBBLE_TITLE_BODY =
-	"When you cliched in prefix currency will be change randomly and the new result will automatically appear"
-private const val BLUE_BUTTON_TEXT = "I agree"
+private const val FIRST_BUBBLE_FIRST_TITLE_TEXT = "This is currency converter"
+private const val FIRST_BUBBLE_FIRST_SUBTITLE_TEXT = "Write number of currency here"
+private const val FIRST_BUBBLE_SECOND_TITLE_TEXT = "Your have two option - lev or Euro"
+private const val FIRST_BUBBLE_TITLE_BODY =
+	"When you click on prefix currency will be change randomly and the new result will automatically appear"
+const val DIALOG_BUBBLE_VIEW_BODY =
+	"This is information view . You can click on prefix and random change and calculate input number currency "
+private const val FIRST_BLUE_BUTTON_TEXT = "I agree"
 private const val GRAY_BUTTON_TEXT = "Cancel"
+private const val SECOND_BUBBLE_FIRST_TITLE_TEXT = "convert to bg function"
+private const val SECOND_BUBBLE_FIRST_SUBTITLE_TEXT = "Click on button"
+private const val SECOND_BUBBLE_SECOND_TITLE_TEXT = "When you click on button currency will be change in leva"
+private const val SECOND_BUBBLE_TITLE_BODY = ""
+private const val SECOND_BLUE_BUTTON_TEXT = "Ok"
 
 class MainViewModel : ViewModel() {
 
@@ -35,11 +42,20 @@ class MainViewModel : ViewModel() {
 	)
 
 	fun getShowCaseBubbleViewModel() = ShowCaseBubbleModel(
-		firstTitleText = BUBBLE_FIRST_TITLE_TEXT,
-		firstSubtitle = BUBBLE_FIRST_SUBTITLE_TEXT,
-		secondTitle = BUBBLE_SECOND_TITLE_TEXT,
-		textBody = BUBBLE_TITLE_BODY,
-		blueButtonText = BLUE_BUTTON_TEXT,
+		firstTitleText = FIRST_BUBBLE_FIRST_TITLE_TEXT,
+		firstSubtitle = FIRST_BUBBLE_FIRST_SUBTITLE_TEXT,
+		secondTitle = FIRST_BUBBLE_SECOND_TITLE_TEXT,
+		textBody = FIRST_BUBBLE_TITLE_BODY,
+		blueButtonText = FIRST_BLUE_BUTTON_TEXT,
+		grayButtonText = GRAY_BUTTON_TEXT
+	)
+
+	fun getShowSecondCaseBubbleViewModel() = ShowCaseBubbleModel(
+		firstTitleText = SECOND_BUBBLE_FIRST_TITLE_TEXT,
+		firstSubtitle = SECOND_BUBBLE_FIRST_SUBTITLE_TEXT,
+		secondTitle = SECOND_BUBBLE_SECOND_TITLE_TEXT,
+		textBody = SECOND_BUBBLE_TITLE_BODY,
+		blueButtonText = SECOND_BLUE_BUTTON_TEXT,
 		grayButtonText = GRAY_BUTTON_TEXT
 	)
 
@@ -76,4 +92,3 @@ class MainViewModel : ViewModel() {
 		0.107847
 	)
 }
-

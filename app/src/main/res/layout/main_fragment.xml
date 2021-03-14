@@ -19,9 +19,9 @@
 		tools:context=".ui.main.MainFragment">
 
 		<com.example.customview.cv.spinner.AdjustedAutoCompleteTextView
-			android:id="@+id/main_curency_spinner"
+			android:id="@+id/main_currency_spinner"
 			style="@style/AutoCompleteTextView"
-			android:layout_width="200dp"
+			android:layout_width="@dimen/main_currency_spinner_width"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/margin_30dp"
 			android:background="@color/white_smoke"
@@ -41,9 +41,9 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/margin_20dp"
-			app:layout_constraintEnd_toEndOf="@+id/main_curency_spinner"
-			app:layout_constraintStart_toStartOf="@+id/main_curency_spinner"
-			app:layout_constraintTop_toBottomOf="@+id/main_curency_spinner"
+			app:layout_constraintEnd_toEndOf="@+id/main_currency_spinner"
+			app:layout_constraintStart_toStartOf="@+id/main_currency_spinner"
+			app:layout_constraintTop_toBottomOf="@+id/main_currency_spinner"
 			app:viewModel="@{mainViewModel.currencyConverterModel}" />
 
 

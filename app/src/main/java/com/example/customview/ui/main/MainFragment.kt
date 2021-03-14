@@ -10,14 +10,12 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.ColorUtils
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.customview.R
 import com.example.customview.cv.bubbleview.OnShowCaseStateListener
-import com.example.customview.cv.bubbleview.ShowCaseBubbleView
 import com.example.customview.cv.bubbleview.ShowCaseView
 import com.example.customview.cv.currencyconverter.Currency
 import com.example.customview.cv.currencyconverter.ICurrencyConverterListener
@@ -32,7 +30,7 @@ class MainFragment : Fragment() {
 	private var colorList = listOf<Int>()
 	private var currentColor = 0
 	private var convertToEU = false
-    private var bubbleView: ShowCaseView? = null
+	private var bubbleView: ShowCaseView? = null
 	private var showCaseStateListener = object : OnShowCaseStateListener {
 		override fun onShow() {
 			//leave empty
@@ -89,6 +87,7 @@ class MainFragment : Fragment() {
 			.setShowCaseBubbleViewModel(showCaseBubbleViewModel)
 			.closeOnTouch(false)
 			.hasCircularAnim(false)
+			.focusCircleRadiusFactor(0.80)
 			.enableTouchOnFocusedView(true)
 			.clickableOn(binding.mainCurrencyConverter.binding.currencyConverterInputNumber)
 			.setStateListener(showCaseStateListener)
@@ -97,17 +96,18 @@ class MainFragment : Fragment() {
 	}
 
 	private fun setShowSecondCaseBubbleView() {
-		val showCaseBubbleViewModel = viewModel.getShowCaseBubbleViewModel()
+		val showCaseBubbleViewModel = viewModel.getShowSecondCaseBubbleViewModel()
 		bubbleView = ShowCaseView.Builder(requireActivity())
-			.focusOn(binding.mainCurrencyConverter.binding.currencyConverterResult)
+			.focusOn(binding.mainCurrencyConverter.binding.currencyConverterBgnButton)
 			.hasCircle(true)
-			.animateInfoBubble(true)
+			.disableFocusAnimation()
+			.animateInfoBubble(false)
 			.setShowCaseBubbleViewModel(showCaseBubbleViewModel)
 			.closeOnTouch(true)
+			.delay(1500)
 			.enableTouchOnFocusedView(false)
-			.focusCircleRadiusFactor(2.00)
-			.fitSystemWindows(false)
-			.backgroundColor(ResourcesCompat.getColor(resources,R.color.Red,null))
+			.focusCircleRadiusFactor(2.5)
+			.backgroundColor(ResourcesCompat.getColor(resources, R.color.Blue, null))
 			.build()
 		bubbleView?.show()
 	}
@@ -118,14 +118,12 @@ class MainFragment : Fragment() {
 		.closeOnTouch(true)
 		.clickableOn(binding.mainCurrencyConverter.binding.currencyConverterPrefix)
 		.setStateListener(dialogViewCaseStateListener)
-		.delay(2000)
 		.build()
 
 	private fun inflateTooltipBubbleView(): View {
 		val tooltipBubbleView = layoutInflater.inflate(R.layout.show_case_tooltip_bubble, null)
 		val tooltipBubbleText = tooltipBubbleView.findViewById(R.id.show_case_tooltip_bubble_tv) as TextView
-		tooltipBubbleText.text =
-			"This is information view . You can click on prefix and random change and calculate input number currency "
+		tooltipBubbleText.text = DIALOG_BUBBLE_VIEW_BODY
 		tooltipBubbleView.layoutParams = FrameLayout.LayoutParams(
 			FrameLayout.LayoutParams.MATCH_PARENT,
 			FrameLayout.LayoutParams.WRAP_CONTENT
@@ -143,7 +141,11 @@ class MainFragment : Fragment() {
 		setFinalListOfCurrency.forEach { item ->
 			currencyNameList.forEachIndexed { index, element ->
 				if (item.currencyCode == element) {
-					val currency = Currency(name = item.displayName, symbol = item.symbol, listOfCurrencyPerUnitInLeva[index])
+					val currency = Currency(
+						name = item.displayName,
+						symbol = item.symbol,
+						bgn = listOfCurrencyPerUnitInLeva[index]
+					)
 					finalCurrencyList.add(currency)
 				}
 			}
@@ -154,11 +156,11 @@ class MainFragment : Fragment() {
 		val listOfCurrencyName = finalCurrencyList.map { it.name }
 		context?.let { context ->
 			val adapter = SpinarAdapter(
-				context,
-				R.layout.spinner_item,
-				listOfCurrencyName
+				context = context,
+				resource = R.layout.spinner_item,
+				items = listOfCurrencyName
 			)
-			binding.mainCurencySpinner.setAdapter(adapter)
+			binding.mainCurrencySpinner.setAdapter(adapter)
 		}
 	}
 
@@ -210,7 +212,7 @@ class MainFragment : Fragment() {
 
 	private fun clearCurrencyConverterFocusAndHideKeyboard() {
 		binding.mainCurrencyConverter.clearFocus()
-		binding.mainCurencySpinner.clearFocus()
+		binding.mainCurrencySpinner.clearFocus()
 		val imm: InputMethodManager = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
 		imm.hideSoftInputFromWindow(binding.mainCurrencyConverter.windowToken, 0)
 	}
