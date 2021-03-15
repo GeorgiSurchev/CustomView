@@ -17,7 +17,8 @@
 
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:animateLayoutChanges="true">
 
 		<Button
 			android:id="@+id/currency_converter_prefix"
@@ -87,7 +88,7 @@
 			app:layout_constraintTop_toTopOf="@+id/currency_converter_result" />
 
 		<View
-			android:id="@+id/row_acc_setting_view_holder_divider"
+			android:id="@+id/currency_converter_divider"
 			android:layout_width="0dp"
 			android:layout_height="@dimen/divider_view_height"
 			android:background="@color/divider_color"
@@ -114,7 +115,7 @@
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintHorizontal_chainStyle="spread_inside"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/row_acc_setting_view_holder_divider"
+			app:layout_constraintTop_toBottomOf="@+id/currency_converter_divider"
 			app:startColor="@color/Yellow" />
 
 		<com.example.customview.cv.button.CustomImageButton
@@ -137,6 +138,12 @@
 			app:layout_constraintStart_toEndOf="@+id/currency_converter_bgn_button"
 			app:layout_constraintTop_toTopOf="@+id/currency_converter_bgn_button"
 			app:startColor="@color/Green" />
+
+		<androidx.constraintlayout.widget.Group
+			android:id="@+id/currency_converter_visibility"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:constraint_referenced_ids="currency_converter_prefix,currency_converter_result,currency_converter_result_name,currency_converter_divider,currency_converter_bgn_button,currency_converter_euro_button" />
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

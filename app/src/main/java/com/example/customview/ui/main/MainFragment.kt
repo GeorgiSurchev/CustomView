@@ -32,6 +32,10 @@ class MainFragment : Fragment() {
 	private var convertToEU = false
 	private var bubbleView: ShowCaseView? = null
 
+	private val animateRunnable = Runnable {
+		binding.mainCurrencyConverter.setAllFieldsVisibilityExceptInput(View.VISIBLE)
+	}
+
 	private var showCaseStateListener = object : OnShowCaseStateListener {
 		override fun onShow() {
 			//leave empty
@@ -64,6 +68,10 @@ class MainFragment : Fragment() {
 		colorList = requireContext().resources.getIntArray(R.array.colors).toList()
 		observeSpinnerInput()
 		setShowCaseBubbleView()
+		binding.mainCurrencyConverter.apply {
+			setAllFieldsVisibilityExceptInput(View.INVISIBLE)
+			postDelayed(animateRunnable,1500)
+		}
 		currentColor = ContextCompat.getColor(requireContext(), R.color.black)
 		setFinalListOfCurrency()
 		setCurrencySpinnerAdapter()
@@ -80,6 +88,7 @@ class MainFragment : Fragment() {
 		})
 	}
 
+
 	private fun setShowCaseBubbleView() {
 		val showCaseBubbleViewModel = viewModel.getShowCaseBubbleViewModel()
 		bubbleView = ShowCaseView.Builder(requireActivity())
@@ -88,6 +97,7 @@ class MainFragment : Fragment() {
 			.animateInfoBubble(true)
 			.setShowCaseBubbleViewModel(showCaseBubbleViewModel)
 			.closeOnTouch(false)
+			.delay(3000)
 			.hasCircularAnim(false)
 			.focusCircleRadiusFactor(0.80)
 			.enableTouchOnFocusedView(true)
@@ -105,7 +115,7 @@ class MainFragment : Fragment() {
 			.disableFocusAnimation()
 			.animateInfoBubble(false)
 			.setShowCaseBubbleViewModel(showCaseBubbleViewModel)
-			.closeOnTouch(true)
+			.closeOnTouch(false)
 			.delay(1500)
 			.enableTouchOnFocusedView(false)
 			.focusCircleRadiusFactor(2.5)

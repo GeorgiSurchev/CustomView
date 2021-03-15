@@ -12,6 +12,7 @@
 	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
+		android:animateLayoutChanges="true"
 		android:id="@+id/container_main"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
@@ -27,6 +28,7 @@
 			android:background="@color/white_smoke"
 			android:completionThreshold="1"
 			android:hint="@{mainViewModel.spinnerHintText}"
+			android:visibility="invisible"
 			android:imeOptions="actionNext"
 			android:text="@={mainViewModel.spinnerInputText}"
 			android:textColor="@color/black"

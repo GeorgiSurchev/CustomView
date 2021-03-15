@@ -8,7 +8,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.customview.R
 import com.example.customview.databinding.CurrencyConverterLayoutBinding
 import com.example.customview.ui.main.DEFAULT_RESULT_NAME
-import com.example.customview.ui.main.MainFragment
 
 private const val EURO_MULTIPLIER = 0.51
 private const val FORMAT_STYLE = "%.3f"
@@ -65,5 +64,9 @@ class CurrencyConverter @JvmOverloads constructor(
 
 	fun changeTextColor(color: Int) {
 		binding.currencyConverterInputNumber.setTextColor(color)
+	}
+
+	fun setAllFieldsVisibilityExceptInput(visibility: Int) {
+		binding.currencyConverterVisibility.visibility = visibility
 	}
 }
