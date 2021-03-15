@@ -36,7 +36,7 @@
 			android:textSize="@dimen/text_size_16sp"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			android:text="@{viewModel.firstTitleText}"
+			app:textOrGone="@{viewModel.firstTitleText}"
 			tools:text="New" />
 
 		<TextView
@@ -45,26 +45,26 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/margin_10dp"
 			android:gravity="start"
-			android:text="@{viewModel.firstSubtitle}"
 			android:textColor="@android:color/black"
 			android:textSize="@dimen/text_size_16sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/show_case_bubble_new"
+			app:textOrGone="@{viewModel.firstSubtitle}"
 			tools:text="Now you can log into the app, this means ..." />
 
 		<TextView
 			android:id="@+id/show_case_bubble_title"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:gravity="start"
 			android:layout_marginTop="@dimen/margin_10dp"
-			android:text="@{viewModel.secondTitle}"
+			android:gravity="start"
 			android:textColor="@android:color/black"
 			android:textSize="@dimen/text_size_16sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/show_case_bubble_subtitle"
+			app:textOrGone="@{viewModel.secondTitle}"
 			tools:text="Example tutorial title" />
 
 		<TextView
@@ -78,7 +78,7 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/show_case_bubble_title"
 			app:layout_goneMarginStart="0dp"
-			android:text="@{viewModel.textBody}"
+			app:textOrGone="@{viewModel.textBody}"
 			tools:text="This is an example text for the extended tutorial bubble's information text. It is below the title." />
 
 		<Button
@@ -88,9 +88,9 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/margin_20dp"
 			android:textColor="@color/Blue"
-			android:text="@{viewModel.blueButtonText}"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/show_case_bubble_text_body"
+			app:textOrGone="@{viewModel.blueButtonText}"
 			tools:text="I agree" />
 
 		<Button
@@ -103,7 +103,7 @@
 			app:layout_constraintBottom_toBottomOf="@+id/show_case_bubble_blue_button"
 			app:layout_constraintStart_toEndOf="@+id/show_case_bubble_blue_button"
 			app:layout_constraintTop_toTopOf="@id/show_case_bubble_blue_button"
-			android:text="@{viewModel.grayButtonText}"
+			app:textOrGone="@{viewModel.grayButtonText}"
 			tools:text="Cancel" />
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
