@@ -31,6 +31,7 @@ class MainFragment : Fragment() {
 	private var currentColor = 0
 	private var convertToEU = false
 	private var bubbleView: ShowCaseView? = null
+
 	private var showCaseStateListener = object : OnShowCaseStateListener {
 		override fun onShow() {
 			//leave empty
@@ -41,6 +42,7 @@ class MainFragment : Fragment() {
 			bubbleView?.show()
 		}
 	}
+
 	private var dialogViewCaseStateListener = object : OnShowCaseStateListener {
 		override fun onShow() {
 			//leave empty
