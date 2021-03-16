@@ -63,8 +63,7 @@ class Calculator(
 	/**
 	 * @return Radius of focus circle
 	 */
-	var viewRadius: Int = 0
-		private set
+	private var viewRadius: Int = 0
 	private var mHasFocus: Boolean = false
 	private var windowFlags: Int = activity.window.attributes.flags
 
@@ -75,8 +74,7 @@ class Calculator(
 		val deviceHeight = displayMetrics.heightPixels
 		bitmapWidth = deviceWidth
 		bitmapHeight = deviceHeight - if (fitSystemWindows) 0 else getStatusBarHeight(activity)
-		val shouldAdjustYPosition = (fitSystemWindows && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-				|| (isFullScreen() && !fitSystemWindows))
+		val shouldAdjustYPosition = (fitSystemWindows || (isFullScreen() && !fitSystemWindows))
 		if (view != null) {
 			val adjustHeight = if (shouldAdjustYPosition) 0 else getStatusBarHeight(activity)
 			val viewPoint = IntArray(2)
@@ -127,16 +125,9 @@ class Calculator(
 
 	private fun isFullScreen(): Boolean = (windowFlags and WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0
 
-	companion object {
-
-		fun getStatusBarHeight(context: Context): Int {
-			var result = 0
-			val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
-			if (resourceId > 0) {
-				result = context.resources.getDimensionPixelSize(resourceId)
-			}
-			return result
-		}
+	private fun getStatusBarHeight(context: Context): Int {
+		val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
+		return if (resourceId > 0) context.resources.getDimensionPixelSize(resourceId) else 0
 	}
 }
 

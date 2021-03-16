@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-	<declare-styleable name="PrefixEditText">
-		<attr name="prefix" format="string"/>
-	</declare-styleable>
-
 	<!-- Custom attributes for the button -->
 	<declare-styleable name="StyledButton">
 		<attr name="cornerRadius" format="dimension" />

@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Path
+import android.graphics.Region
 import android.graphics.Shader
 import android.os.Build
 import android.util.AttributeSet
@@ -57,7 +58,6 @@ class CustomImageButton @JvmOverloads constructor(
 		)
 	}
 
-	@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 	override fun onDraw(canvas: Canvas) {
 		super.onDraw(canvas)
 
@@ -74,6 +74,8 @@ class CustomImageButton @JvmOverloads constructor(
 		)
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			canvas.clipOutPath(path)
+		} else {
+			canvas.clipPath(path, Region.Op.DIFFERENCE)
 		}
 
 		//Draw gradient on the outer section

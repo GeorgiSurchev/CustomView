@@ -193,7 +193,7 @@ class MainFragment : Fragment() {
 			}
 
 			override fun onInputNumberClicked() {
-				binding.mainCurrencyConverter.changeTextColor(colorList.random())
+				binding.mainCurrencyConverter.changeInputNumberTextColor(colorList.random())
 			}
 
 			override fun onBGNButtonClicked() {

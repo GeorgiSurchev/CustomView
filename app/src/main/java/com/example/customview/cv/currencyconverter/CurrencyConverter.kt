@@ -62,7 +62,7 @@ class CurrencyConverter @JvmOverloads constructor(
 
 	fun isInputNumberNotEmpty() = binding.currencyConverterInputNumber.text.isNotBlank()
 
-	fun changeTextColor(color: Int) {
+	fun changeInputNumberTextColor(color: Int) {
 		binding.currencyConverterInputNumber.setTextColor(color)
 	}
 
