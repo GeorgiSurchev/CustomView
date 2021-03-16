@@ -34,7 +34,8 @@
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintHorizontal_chainStyle="spread_inside"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="$" />
 
 		<EditText
 			android:id="@+id/currency_converter_input_number"
@@ -70,7 +71,8 @@
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintHorizontal_chainStyle="packed"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/currency_converter_prefix" />
+			app:layout_constraintTop_toBottomOf="@+id/currency_converter_prefix"
+			tools:text="Result"/>
 
 		<TextView
 			android:id="@+id/currency_converter_result_name"
@@ -85,7 +87,8 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/currency_converter_result"
-			app:layout_constraintTop_toTopOf="@+id/currency_converter_result" />
+			app:layout_constraintTop_toTopOf="@+id/currency_converter_result"
+			tools:text="BGN"/>
 
 		<View
 			android:id="@+id/currency_converter_divider"

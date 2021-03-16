@@ -27,12 +27,13 @@ class MainFragment : Fragment() {
 	private lateinit var binding: MainFragmentBinding
 	private lateinit var viewModel: MainViewModel
 	private var finalCurrencyList = mutableListOf<Currency>()
-	private var colorList = listOf<Int>()
+	private var colorList = intArrayOf()
 	private var currentColor = 0
 	private var convertToEU = false
 	private var bubbleView: ShowCaseView? = null
 
 	private val animateRunnable = Runnable {
+		binding.mainCurrencySpinner.visibility = View.VISIBLE
 		binding.mainCurrencyConverter.setAllFieldsVisibilityExceptInput(View.VISIBLE)
 	}
 
@@ -65,14 +66,14 @@ class MainFragment : Fragment() {
 		binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
 		binding.lifecycleOwner = this
 		binding.mainViewModel = viewModel
-		colorList = requireContext().resources.getIntArray(R.array.colors).toList()
-		observeSpinnerInput()
-		setShowCaseBubbleView()
+		colorList = requireContext().resources.getIntArray(R.array.colors)
+		currentColor = ContextCompat.getColor(requireContext(), R.color.black)
 		binding.mainCurrencyConverter.apply {
 			setAllFieldsVisibilityExceptInput(View.INVISIBLE)
 			postDelayed(animateRunnable,1500)
 		}
-		currentColor = ContextCompat.getColor(requireContext(), R.color.black)
+		observeSpinnerInput()
+		setShowCaseBubbleView()
 		setFinalListOfCurrency()
 		setCurrencySpinnerAdapter()
 		currencyConverterListener(finalCurrencyList)
@@ -87,7 +88,6 @@ class MainFragment : Fragment() {
 			}
 		})
 	}
-
 
 	private fun setShowCaseBubbleView() {
 		val showCaseBubbleViewModel = viewModel.getShowCaseBubbleViewModel()
