@@ -32,6 +32,15 @@ import kotlin.math.sqrt
 /**
  * The class responsible for the behaviour of the [ShowCaseImageView]
  */
+private const val FOCUS_ANIMATION_STEP = 5
+private const val ANIMATION_DURATION = 400
+private const val FOCUS_ANIM_MAX = 20
+private const val INFORMATION_BUBBLE_ANIM_START_OFFSET = 100L
+private const val INFORMATION_BUBBLE_ANIM_DURATION = 800L
+private const val INFORMATION_BUBBLE_TRIANGLE_ROTATION = 180f
+
+// Tag for container view
+private const val CONTAINER_TAG = "ShowCaseViewTag"
 @Suppress("LargeClass")
 class ShowCaseView @JvmOverloads constructor(
 	context: Context,
@@ -79,19 +88,6 @@ class ShowCaseView @JvmOverloads constructor(
 	val animating: Boolean
 		get() = fadingIn || fadingOut
 	//endregion
-
-	companion object {
-
-		private const val FOCUS_ANIMATION_STEP = 5
-		private const val ANIMATION_DURATION = 400
-		private const val FOCUS_ANIM_MAX = 20
-		private const val INFORMATION_BUBBLE_ANIM_START_OFFSET = 100L
-		private const val INFORMATION_BUBBLE_ANIM_DURATION = 800L
-		private const val INFORMATION_BUBBLE_TRIANGLE_ROTATION = 180f
-
-		// Tag for container view
-		private const val CONTAINER_TAG = "ShowCaseViewTag"
-	}
 
 	private constructor(
 		hasCircle: Boolean,
