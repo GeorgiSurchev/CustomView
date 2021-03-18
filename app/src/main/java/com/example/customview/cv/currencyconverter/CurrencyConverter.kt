@@ -22,8 +22,8 @@ class CurrencyConverter @JvmOverloads constructor(
 	val binding: CurrencyConverterLayoutBinding =
 		CurrencyConverterLayoutBinding.inflate(LayoutInflater.from(context), this, true)
 
-	fun setViewModel(viewModel: CurrencyConverterModel?) {
-		binding.currencyConverterModel = viewModel
+	fun setViewModel(viewModel: CurrencyConverterViewModel?) {
+		binding.currencyConverterViewModel = viewModel
 	}
 
 	fun setListener(listener: ICurrencyConverterListener) {

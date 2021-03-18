@@ -174,10 +174,6 @@ class ShowCaseView @JvmOverloads constructor(
 		}
 	}
 
-	fun dismiss() {
-		removeView()
-	}
-
 	private fun focus() {
 		focusCalculator = Calculator(
 			activity,
@@ -213,7 +209,7 @@ class ShowCaseView @JvmOverloads constructor(
 				setupTouchListener()
 				setCalculatorParams()
 				addFancyImageView()
-				inflateContent()
+				addInformationViews()
 				startEnterAnimation()
 			}
 			stateListener?.onShow()
@@ -243,10 +239,6 @@ class ShowCaseView @JvmOverloads constructor(
 			)
 			addView(this)
 		}
-	}
-
-	private fun inflateContent() {
-		addInformationViews()
 	}
 
 	@SuppressLint("ClickableViewAccessibility")
@@ -535,26 +527,24 @@ class ShowCaseView @JvmOverloads constructor(
 	private fun doCircularExitAnimation() {
 		if (!isAttachedToWindow) return
 		val revealRadius = hypot(width.toDouble(), height.toDouble()).toInt()
-		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-			ViewAnimationUtils.createCircularReveal(
-				this,
-				centerX,
-				centerY,
-				revealRadius.toFloat(),
-				0f
-			).apply {
-				duration = animationDuration.toLong()
-				interpolator = AnimationUtils.loadInterpolator(
-					activity,
-					android.R.interpolator.decelerate_cubic
-				)
-				addListener(object : AnimatorListenerAdapter() {
-					override fun onAnimationEnd(animation: Animator) {
-						removeView()
-					}
-				})
-				start()
-			}
+		ViewAnimationUtils.createCircularReveal(
+			this,
+			centerX,
+			centerY,
+			revealRadius.toFloat(),
+			0f
+		).apply {
+			duration = animationDuration.toLong()
+			interpolator = AnimationUtils.loadInterpolator(
+				activity,
+				android.R.interpolator.decelerate_cubic
+			)
+			addListener(object : AnimatorListenerAdapter() {
+				override fun onAnimationEnd(animation: Animator) {
+					removeView()
+				}
+			})
+			start()
 		}
 	}
 

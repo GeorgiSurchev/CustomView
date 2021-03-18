@@ -6,8 +6,8 @@
 	<data>
 
 		<variable
-			name="currencyConverterModel"
-			type="com.example.customview.cv.currencyconverter.CurrencyConverterModel" />
+			name="currencyConverterViewModel"
+			type="com.example.customview.cv.currencyconverter.CurrencyConverterViewModel" />
 
 		<variable
 			name="currencyConverterListener"
@@ -28,7 +28,7 @@
 			android:layout_marginTop="@dimen/margin_20dp"
 			android:layout_marginEnd="@dimen/margin_10dp"
 			android:onClick="@{() -> currencyConverterListener.onPrefixClicked()}"
-			android:text="@{currencyConverterModel.prefix}"
+			android:text="@{currencyConverterViewModel.prefix}"
 			android:textSize="@dimen/text_size_30sp"
 			app:layout_constraintEnd_toStartOf="@+id/currency_converter_input_number"
 			app:layout_constraintHorizontal_bias="0.5"
@@ -44,7 +44,7 @@
 			android:layout_marginStart="@dimen/margin_30dp"
 			android:layout_marginTop="@dimen/margin_20dp"
 			android:background="@color/white_smoke"
-			android:hint="@{currencyConverterModel.inputTextHint}"
+			android:hint="@{currencyConverterViewModel.inputTextHint}"
 			android:inputType="number"
 			android:maxLength="5"
 			android:maxLines="1"
@@ -64,7 +64,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/margin_16dp"
-			android:hint="@{currencyConverterModel.resultTextHint}"
+			android:hint="@{currencyConverterViewModel.resultTextHint}"
 			android:maxLines="1"
 			android:textSize="@dimen/text_size_30sp"
 			app:layout_constraintEnd_toStartOf="@+id/currency_converter_result_name"
@@ -80,7 +80,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/margin_10dp"
 			android:maxLines="1"
-			android:text="@{currencyConverterModel.resultName}"
+			android:text="@{currencyConverterViewModel.resultName}"
 			android:textColor="@color/Red"
 			android:textSize="@dimen/text_size_30sp"
 			app:layout_constraintBottom_toBottomOf="@+id/currency_converter_result"

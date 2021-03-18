@@ -76,7 +76,7 @@ class MainFragment : Fragment() {
 		setShowCaseBubbleView()
 		setFinalListOfCurrency()
 		setCurrencySpinnerAdapter()
-		currencyConverterListener(finalCurrencyList)
+		currencyConverterListener()
 
 		return binding.root
 	}
@@ -118,7 +118,7 @@ class MainFragment : Fragment() {
 			.hasCircularAnim(true)
 			.closeOnTouch(false)
 			.delay(1500)
-			.enableTouchOnFocusedView(false)
+			.enableTouchOnFocusedView(true)
 			.focusCircleRadiusFactor(2.5)
 			.backgroundColor(ResourcesCompat.getColor(resources, R.color.Blue, null))
 			.build()
@@ -177,9 +177,7 @@ class MainFragment : Fragment() {
 		}
 	}
 
-	private fun currencyConverterListener(
-		finalCurrencyList: MutableList<Currency>
-	) {
+	private fun currencyConverterListener() {
 		binding.mainCurrencyConverter.setListener(object : ICurrencyConverterListener {
 			override fun onPrefixClicked() {
 				val currency = finalCurrencyList.random()

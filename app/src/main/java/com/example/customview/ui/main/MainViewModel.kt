@@ -3,7 +3,7 @@ package com.example.customview.ui.main
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.customview.cv.bubbleview.ShowCaseBubbleModel
-import com.example.customview.cv.currencyconverter.CurrencyConverterModel
+import com.example.customview.cv.currencyconverter.CurrencyConverterViewModel
 
 private const val DEFAULT_PREFIX_SYMBOL = "$"
 const val DEFAULT_RESULT_NAME = "BGN"
@@ -35,7 +35,7 @@ class MainViewModel : ViewModel() {
 
 	val spinnerHintText = MutableLiveData<String>(DEFAULT_SPINNER_TEXT_HINT)
 
-	val currencyConverterModel = CurrencyConverterModel(
+	val currencyConverterViewModel = CurrencyConverterViewModel(
 		prefix = DEFAULT_PREFIX_SYMBOL,
 		inputTextHint = INPUT_TEXT_HINT,
 		resultTextHint = RESULT_TEXT_HINT,

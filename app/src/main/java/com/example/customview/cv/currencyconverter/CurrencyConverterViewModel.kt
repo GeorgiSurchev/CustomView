@@ -1,6 +1,6 @@
 package com.example.customview.cv.currencyconverter
 
-data class CurrencyConverterModel(
+data class CurrencyConverterViewModel(
 	val prefix: String = "",
 	val inputTextHint: String = "",
 	val resultTextHint: String = "",
