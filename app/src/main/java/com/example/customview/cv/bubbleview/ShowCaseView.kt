@@ -333,15 +333,12 @@ class ShowCaseView @JvmOverloads constructor(
 	 * Hides ShowCaseView with animation
 	 */
 	private fun hide() {
-		if (enableFullScreen) {
-			activity.window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-			activity.window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-		}
 		if (shouldShowCircularAnimation()) {
 			doCircularExitAnimation()
 		} else {
 			doFadeOutAnimation()
 		}
+		disableFullScreen()
 		stateListener?.onHide()
 	}
 
@@ -567,9 +564,17 @@ class ShowCaseView @JvmOverloads constructor(
 	 * Removes ShowCaseView view from activity root view
 	 */
 	fun removeView() {
+		disableFullScreen()
 		stateListener?.onHide()
 		if (showCaseImageView != null) showCaseImageView = null
 		root?.removeView(this)
+	}
+
+	private fun disableFullScreen() {
+		if (enableFullScreen) {
+			activity.window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+			activity.window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+		}
 	}
 
 	override fun onGlobalLayout() {
