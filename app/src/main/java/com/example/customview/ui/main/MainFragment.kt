@@ -48,13 +48,23 @@ class MainFragment : Fragment() {
 		}
 	}
 
-	private var dialogViewCaseStateListener = object : OnShowCaseStateListener {
+	private var secondDialogViewStateListener = object : OnShowCaseStateListener {
 		override fun onShow() {
 			//leave empty
 		}
 
 		override fun onHide() {
 			setShowSecondCaseBubbleView()
+		}
+	}
+
+	private var showSecondCaseStateListener = object : OnShowCaseStateListener {
+		override fun onShow() {
+			//leave empty
+		}
+
+		override fun onHide() {
+			buildSecondBubbleDialogView()
 		}
 	}
 
@@ -118,6 +128,7 @@ class MainFragment : Fragment() {
 			.hasCircularAnim(true)
 			.closeOnTouch(false)
 			.delay(1500)
+			.setStateListener(showSecondCaseStateListener)
 			.enableTouchOnFocusedView(true)
 			.focusCircleRadiusFactor(2.5)
 			.backgroundColor(ResourcesCompat.getColor(resources, R.color.Blue, null))
@@ -126,17 +137,17 @@ class MainFragment : Fragment() {
 	}
 
 	private fun buildBubbleDialogView(): ShowCaseView = ShowCaseView.Builder(requireActivity())
-		.setCustomView(inflateTooltipBubbleView())
+		.setCustomView(inflateTooltipBubbleView(FIRST_DIALOG_BUBBLE_VIEW_BODY))
 		.focusOn(binding.mainCurrencyConverter.binding.currencyConverterPrefix)
 		.closeOnTouch(true)
 		.clickableOn(binding.mainCurrencyConverter.binding.currencyConverterPrefix)
-		.setStateListener(dialogViewCaseStateListener)
+		.setStateListener(secondDialogViewStateListener)
 		.build()
 
-	private fun inflateTooltipBubbleView(): View {
+	private fun inflateTooltipBubbleView(textBody: String): View {
 		val tooltipBubbleView = layoutInflater.inflate(R.layout.show_case_tooltip_bubble, null)
 		val tooltipBubbleText = tooltipBubbleView.findViewById(R.id.show_case_tooltip_bubble_tv) as TextView
-		tooltipBubbleText.text = DIALOG_BUBBLE_VIEW_BODY
+		tooltipBubbleText.text = textBody
 		tooltipBubbleView.layoutParams = FrameLayout.LayoutParams(
 			FrameLayout.LayoutParams.MATCH_PARENT,
 			FrameLayout.LayoutParams.WRAP_CONTENT
@@ -145,6 +156,25 @@ class MainFragment : Fragment() {
 			setMargins(startEndMargin, 0, startEndMargin, 0)
 		}
 		return tooltipBubbleView
+	}
+
+	private fun buildSecondBubbleDialogView() {
+		val bottomMargin = resources.getDimension(R.dimen.margin_48dp).toInt()
+		bubbleView = ShowCaseView.Builder(requireActivity())
+			.setCustomView(inflateTooltipBubbleView(SECOND_DIALOG_BUBBLE_VIEW_BODY))
+			.hasCircle(true)
+			.animateInfoBubble(true)
+			.fitSystemWindows(false)
+			.hasCircularAnim(true)
+			.focusCircleRadiusFactor(1.50)
+			.focusOn(binding.mainCurrencySpinner)
+			.closeOnTouch(true)
+			.backgroundColor((ResourcesCompat.getColor(resources, R.color.black, null)))
+			.clickableOn(binding.mainCurrencySpinner)
+			.setBottomMargin(bottomMargin)
+			.enableFullScreen()
+			.build()
+		bubbleView?.show()
 	}
 
 	private fun setFinalListOfCurrency() {

@@ -16,7 +16,9 @@ private const val FIRST_BUBBLE_FIRST_SUBTITLE_TEXT = "Write number of currency h
 private const val FIRST_BUBBLE_SECOND_TITLE_TEXT = "Your have two options - BGN or EURO."
 private const val FIRST_BUBBLE_TITLE_BODY =
 	"When you click on the prefix, the currency will change randomly and the new result will appear automatically."
-const val DIALOG_BUBBLE_VIEW_BODY =
+const val SECOND_DIALOG_BUBBLE_VIEW_BODY =
+	"You can type the name of your currency here or select it from the drop-down menu when you enter its first few characters."
+const val FIRST_DIALOG_BUBBLE_VIEW_BODY =
 	"When you click on the prefix, random currency will appear and its value in BGN or EURO will be calculated according to the entered number."
 private const val FIRST_BLUE_BUTTON_TEXT = "I agree"
 private const val GRAY_BUTTON_TEXT = "Cancel"

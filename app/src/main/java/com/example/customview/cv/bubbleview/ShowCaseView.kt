@@ -17,6 +17,7 @@ import android.view.View.OnTouchListener
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.OvershootInterpolator
@@ -41,6 +42,7 @@ private const val INFORMATION_BUBBLE_TRIANGLE_ROTATION = 180f
 
 // Tag for container view
 private const val CONTAINER_TAG = "ShowCaseViewTag"
+
 @Suppress("LargeClass")
 class ShowCaseView @JvmOverloads constructor(
 	context: Context,
@@ -75,9 +77,11 @@ class ShowCaseView @JvmOverloads constructor(
 	private var focusRectangleWidth: Int = 0
 	private var focusRectangleHeight: Int = 0
 	private var focusAnimationEnabled: Boolean = true
+	private var enableFullScreen: Boolean = false
 	private var showCaseImageView: ShowCaseImageView? = null
 	private var hasCircularEnterExitAnim = false
 	private var showCaseBubbleViewModel: ShowCaseBubbleModel? = null
+	private var bottomMargin: Int = 0
 	private var stateListener: OnShowCaseStateListener? = null
 	private var showCaseBubbleListener: ShowCaseBubbleListener? = null
 	private var highlightedAreaClickListener: HighlightedAreaClickListener? = null
@@ -106,14 +110,16 @@ class ShowCaseView @JvmOverloads constructor(
 		focusRectangleWidth: Int,
 		focusRectangleHeight: Int,
 		animationEnabled: Boolean,
+		enableFullScreen: Boolean,
 		focusAnimationMaxValue: Int,
 		focusAnimationStep: Int,
 		animateInfoBubble: Boolean,
 		delay: Long,
 		hasCircularAnim: Boolean,
+		bottomMargin: Int,
 		showCaseBubbleModel: ShowCaseBubbleModel?,
 		showCaseBubbleListener: ShowCaseBubbleListener?,
-		stateListener:OnShowCaseStateListener?,
+		stateListener: OnShowCaseStateListener?,
 		highlightedAreaClickListener: HighlightedAreaClickListener?
 	) : this(activity) {
 
@@ -133,12 +139,14 @@ class ShowCaseView @JvmOverloads constructor(
 		this.focusRectangleWidth = focusRectangleWidth
 		this.focusRectangleHeight = focusRectangleHeight
 		this.focusAnimationEnabled = animationEnabled
+		this.enableFullScreen = enableFullScreen
 		this.focusAnimationMaxValue = focusAnimationMaxValue
 		this.focusAnimationStep = focusAnimationStep
 		this.animateInfoBubble = animateInfoBubble
 		this.delay = delay
 		this.hasCircularEnterExitAnim = hasCircularAnim
 		this.showCaseBubbleViewModel = showCaseBubbleModel
+		this.bottomMargin = bottomMargin
 		this.showCaseBubbleListener = showCaseBubbleListener
 		this.stateListener = stateListener
 		this.highlightedAreaClickListener = highlightedAreaClickListener
@@ -155,6 +163,10 @@ class ShowCaseView @JvmOverloads constructor(
 			ContextCompat.getColor(activity, R.color.showcase_background)
 		}
 		val displayMetrics = DisplayMetrics()
+		if (enableFullScreen) {
+			activity.window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+			activity.window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+		}
 		activity.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
 		val deviceWidth = displayMetrics.widthPixels
 		val deviceHeight = displayMetrics.heightPixels
@@ -321,6 +333,10 @@ class ShowCaseView @JvmOverloads constructor(
 	 * Hides ShowCaseView with animation
 	 */
 	private fun hide() {
+		if (enableFullScreen) {
+			activity.window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+			activity.window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+		}
 		if (shouldShowCircularAnimation()) {
 			doCircularExitAnimation()
 		} else {
@@ -465,7 +481,7 @@ class ShowCaseView @JvmOverloads constructor(
 		return if (initialPoint.isBelowDisplayCenter()) {
 			initialPoint - (offset + viewHeight) + bubbleArrowMargin
 		} else {
-			initialPoint + offset - bubbleArrowMargin
+			initialPoint + offset - bubbleArrowMargin + bottomMargin
 		}
 	}
 
@@ -497,25 +513,24 @@ class ShowCaseView @JvmOverloads constructor(
 						centerX = focusPositionX
 						centerY = focusPositionY
 					}
-					if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-						ViewAnimationUtils.createCircularReveal(
-							this@ShowCaseView,
-							centerX,
-							centerY,
-							startRadius.toFloat(),
-							revealRadius.toFloat()
-						).apply {
 
-							duration = animationDuration.toLong()
-							addListener(object : AnimatorListenerAdapter() {
-								override fun onAnimationEnd(animation: Animator) {}
-							})
-							interpolator = AnimationUtils.loadInterpolator(
-								activity,
-								android.R.interpolator.accelerate_cubic
-							)
-							start()
-						}
+					ViewAnimationUtils.createCircularReveal(
+						this@ShowCaseView,
+						centerX,
+						centerY,
+						startRadius.toFloat(),
+						revealRadius.toFloat()
+					).apply {
+
+						duration = animationDuration.toLong()
+						addListener(object : AnimatorListenerAdapter() {
+							override fun onAnimationEnd(animation: Animator) {}
+						})
+						interpolator = AnimationUtils.loadInterpolator(
+							activity,
+							android.R.interpolator.accelerate_cubic
+						)
+						start()
 					}
 				}
 			})
@@ -584,12 +599,14 @@ class ShowCaseView @JvmOverloads constructor(
 		private var mFocusRectangleWidth: Int = 0
 		private var mFocusRectangleHeight: Int = 0
 		private var focusAnimationEnabled = true
+		private var enableFullScreen = false
 		private var mFocusAnimationMaxValue = FOCUS_ANIM_MAX
 		private var mFocusAnimationStep = 1
 		private var animateInfoBubble = false
 		private var delay: Long = 0
 		private var hasCircularEnterExitAnm = false
 		private var showCaseBubbleModel: ShowCaseBubbleModel? = null
+		private var bottomMargin: Int = 0
 		private var showCaseBubbleListener: ShowCaseBubbleListener? = null
 		private var stateListener: OnShowCaseStateListener? = null
 		private var highlightedAreaClickListener: HighlightedAreaClickListener? = null
@@ -679,6 +696,16 @@ class ShowCaseView @JvmOverloads constructor(
 			return this
 		}
 
+		fun enableFullScreen(): Builder {
+			enableFullScreen = true
+			return this
+		}
+
+		fun setBottomMargin(bottomMargin: Int): Builder {
+			this.bottomMargin = bottomMargin
+			return this
+		}
+
 		fun focusAnimationMaxValue(focusAnimationMaxValue: Int): Builder {
 			mFocusAnimationMaxValue = focusAnimationMaxValue
 			return this
@@ -750,12 +777,14 @@ class ShowCaseView @JvmOverloads constructor(
 				focusRectangleWidth = mFocusRectangleWidth,
 				focusRectangleHeight = mFocusRectangleHeight,
 				animationEnabled = focusAnimationEnabled,
+				enableFullScreen = enableFullScreen,
 				focusAnimationMaxValue = mFocusAnimationMaxValue,
 				focusAnimationStep = mFocusAnimationStep,
 				animateInfoBubble = animateInfoBubble,
 				delay = delay,
 				hasCircularAnim = hasCircularEnterExitAnm,
 				showCaseBubbleModel = showCaseBubbleModel,
+				bottomMargin = bottomMargin,
 				showCaseBubbleListener = showCaseBubbleListener,
 				stateListener = stateListener,
 				highlightedAreaClickListener = highlightedAreaClickListener
